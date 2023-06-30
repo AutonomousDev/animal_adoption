@@ -1,0 +1,38 @@
+# Local Setup
+
+You should use a virtual Environment so you python packages are the same version as the project and limited to only the 
+packages we need. Pycharm has this built in with venv.
+
+Navigate your terminal to the project root directory.
+
+Install package from the `requirements.txt` file with
+`pip install -r requirements.txt`
+
+Generate/update your local DB with `python manage.py migrate`
+
+You should see a `db.sqlite3` file in the project root directory now.
+
+## Local Environment config variables
+Create a file in your project root named `.env`
+
+This file will hold all the configuration variables as well as sensitive variables we don't want to publish on a 
+public Github repository. 
+
+### .env file contents
+
+    # The SECRET_KEY is used to provide cryptographic signing, and should be set to a unique, unpredictable value.
+    SECRET_KEY = 'django-insecure-+c7d3b-e(h5utox^vk1-n--_afrpy0v0-#(mdykz4e0q4(=#26'
+
+## Start the server
+
+Verify everything is working with the command `python manage.py runserver` 
+
+The server address should show in the terminal which is http://127.0.0.1:8000/ or http://localhost:8000/ by default.
+
+## Updating Packages
+
+If you have to install new packages or update existing packages `requirements.txt` needs to be updated. 
+
+Running the command `pip freeze > requirements.txt` will dump your installed packages to the `requirements.txt` file.
+It's important to be using a Virtual Environment so that you only dump the packages used for this project and not all 
+the global packages installed on your machine.
