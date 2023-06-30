@@ -13,15 +13,11 @@ Generate/update your local DB with `python manage.py migrate`
 You should see a `db.sqlite3` file in the project root directory now.
 
 ## Local Environment config variables
-Create a file in your project root named `.env`
+Create a file in your project root named `.env` using the `.env-template` file.
 
 This file will hold all the configuration variables as well as sensitive variables we don't want to publish on a 
 public Github repository. 
 
-### .env file contents
-
-    # The SECRET_KEY is used to provide cryptographic signing, and should be set to a unique, unpredictable value.
-    SECRET_KEY = 'django-insecure-+c7d3b-e(h5utox^vk1-n--_afrpy0v0-#(mdykz4e0q4(=#26'
 
 ## Start the server
 
