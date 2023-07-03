@@ -4,7 +4,7 @@ from shelters.models import Shelter
 
 
 # Create your models here.
-class Animals(models.Model):
+class Animal(models.Model):
     date_entered = models.DateTimeField(default=timezone.now)
     species = models.ForeignKey('Species', on_delete=models.SET_NULL, blank=False, null=True)
     age = models.IntegerField()
