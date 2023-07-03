@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from shelters.models import Shelter
 
 
 # Create your models here.
@@ -8,11 +9,11 @@ class Animals(models.Model):
     species = models.ForeignKey('Species', on_delete=models.SET_NULL, blank=False, null=True)
     age = models.IntegerField()
     breed = models.ForeignKey('Breed', on_delete=models.SET_NULL, blank=False, null=True)
-    shelter = models.ForeignKey('Shelter', on_delete=models.CASCADE, blank=False)
+    shelter = models.ForeignKey(Shelter, on_delete=models.CASCADE, blank=False)
     views = models.IntegerField(default=0)
-    availability = models.ForeignKey('Availability')
-    disposition = models.ManyToOneRel('Disposition', blank=True)
-    size = models.ForeignKey('size')
+    availability = models.ForeignKey('Availability', on_delete=models.PROTECT)
+    disposition = models.ManyToManyField('Disposition')
+    size = models.ForeignKey('Size', on_delete=models.PROTECT)
 
     def __str__(self):
         return self.species + " " + self.age
