@@ -1,0 +1,13 @@
+{% extends "news/components/base.html" %}
+{% block content %}
+
+<h1>{{ user.username }}</h1>
+
+<ul>
+    <li>Email: {{ user.email }}</li>
+    {% if user.profile.employer %}
+    <li>Employer: {{ user.profile.employer }}  </li>
+    {% endif %}
+</ul>
+
+{% endblock content %}
