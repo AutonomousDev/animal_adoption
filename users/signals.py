@@ -13,5 +13,5 @@ def create_profile(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=User)
 def save_profile(sender, instance, **kwargs):
-    """This Signal saves a profile when a new user is saved."""
+    """This Signal saves a profile when a user is saved."""
     instance.profile.save()
