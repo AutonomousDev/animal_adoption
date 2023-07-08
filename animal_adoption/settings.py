@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'animals.apps.AnimalsConfig',
     'news.apps.NewsConfig',
     'shelters.apps.SheltersConfig',
-    'users.app.UsersConfig',
+    'users.apps.UsersConfig',
+    'crispy_forms',
+    'crispy_bootstrap5'
 ]
 
 MIDDLEWARE = [
@@ -126,3 +128,13 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Used to Bootstrap 5 Forms
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+# default page after login
+LOGIN_REDIRECT_URL = 'news-home'
+
+# Redirect to login page if authentication is needed
+LOGIN_URL = 'users-login'
