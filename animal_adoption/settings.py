@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'animals.apps.AnimalsConfig',
     'news.apps.NewsConfig',
     'shelters.apps.SheltersConfig',
+    'users.app.UsersConfig',
 ]
 
 MIDDLEWARE = [
