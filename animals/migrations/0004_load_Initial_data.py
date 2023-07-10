@@ -6,6 +6,7 @@ from django.core.management import call_command
 
 def load_fixture(apps, schema_editor):
     call_command('loaddata', 'Species')
+    call_command('loaddata', 'Animals')
 
 
 class Migration(migrations.Migration):
