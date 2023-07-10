@@ -1,0 +1,16 @@
+{% extends "animals/components/base.html" %}
+{% block content %}
+
+<h1>All Animals</h1>
+
+{# make into table & hyperlink @ each animal #}
+{% if animals %}
+    {% for animal in animals %}
+        <ul> {{animal}} </ul>
+    {% endfor %}
+ {{animal}}
+{% else %}
+ <h2> No animal selected </h2>
+{% endif %}
+
+{% endblock content %}
