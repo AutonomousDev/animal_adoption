@@ -1,0 +1,30 @@
+{% extends "news/components/base.html" %}
+{% block content %}
+<h1> Shelters</h1>
+
+{% if user.profile.shelter is None %}
+    <a class="btn btn-success" href="#" role="button">Create Shelter</a>
+{% endif %}
+
+<div class="row pt-4">
+    {% for object in object_list %}
+    <div class="col-sm-4">
+        <div class="card mt-4">
+            <div class="card-body">
+                <h5 class="card-title">{{ object }}</h5>
+                <h6 class="card-title">{{ object.City }} {{ object.state }}</h6>
+
+                <div class="card-text">
+                    <span>
+                        {{ object.phoneNumber }}
+                    </span>
+                </div>
+
+                <a href="{{ object.get_absolute_url }}" class="btn btn-primary">Shelter details</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

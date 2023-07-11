@@ -1,0 +1,33 @@
+{% extends "news/components/base.html" %}
+{% block content %}
+
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">{{ object.name }}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{object.phoneNumber}}</h6>
+    <address class="card-text">
+      {% if object.addressLine1 %}
+        {{ object.addressLine1 }}
+        <br>
+      {% endif %}
+
+      {% if object.addressLine2 %}
+        {{ object.addressLine2 }}
+        <br>
+      {% endif %}
+
+      {% if object.addressLine3 %}
+        {{ object.addressLine3 }}
+        <br>
+      {% endif %}
+      {% if object.city %}
+      {{ object.city }},
+      {% endif %}
+      {{ object.state }}
+      {{ object.zip }}
+    </address>
+    <a href="{{object.webSite}}">{{ object.name }}'s website</a>
+  </div>
+</div>
+
+{% endblock content %}
