@@ -3,7 +3,8 @@ from django.views.generic import (
     ListView,
     DetailView,
     CreateView,
-    UpdateView
+    UpdateView,
+    DeleteView
 )
 from .models import Shelter
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -64,3 +65,25 @@ class ShelterUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         if self.request.user.profile.shelter == shelter:
             return True
         return False
+
+
+class ShelterDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    """Deletes the posts and redirects to home."""
+    model = Shelter
+    success_url = '/'
+
+    def test_func(self):
+        """Logic for checking the current user is the same as the author before they can
+        make deletes"""
+        shelter = self.get_object()
+        if self.request.user.profile.shelter == shelter:
+            return True
+        else:
+            return False
+
+    def form_valid(self, form):
+        """Clear shelter from user profile"""
+        user_profile = self.request.user.profile
+        user_profile.shelter = None
+        user_profile.save()
+        return super().form_valid(form)

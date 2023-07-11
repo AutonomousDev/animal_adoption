@@ -6,7 +6,8 @@
     <div class="">
       <h5 class="card-title">{{ object.name }}</h5>
       {% if user.profile.shelter == object %}
-      <a class="btn btn-warning" href="{% url 'shelter-update' object.id %}" role="button">Edit Shelter</a>
+      <a class="btn btn-warning mt-2 mb-2" href="{% url 'shelter-update' object.id %}" role="button">Edit Shelter</a>
+       <a class="btn btn-danger mt-2 mb-2" href="{% url 'shelter-delete' object.id %}" role="button">Delete Shelter</a>
       {% endif %}
     </div>
 
