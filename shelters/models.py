@@ -23,4 +23,4 @@ class Shelter(models.Model):
 
     def get_absolute_url(self):
         """Returns the url to access a detailed record for this student"""
-        return reverse("job-post-detail", args=[str(self.id)])
+        return reverse('shelters-detail', args=[str(self.id)])

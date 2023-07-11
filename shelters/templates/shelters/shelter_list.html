@@ -2,8 +2,10 @@
 {% block content %}
 <h1> Shelters</h1>
 
+{% if user.is_authenticated %}
 {% if user.profile.shelter is None %}
-    <a class="btn btn-success" href="#" role="button">Create Shelter</a>
+<a class="btn btn-success" href="{% url 'shelters-create' %}" role="button">Create Shelter</a>
+{% endif %}
 {% endif %}
 
 <div class="row pt-4">
@@ -12,7 +14,7 @@
         <div class="card mt-4">
             <div class="card-body">
                 <h5 class="card-title">{{ object }}</h5>
-                <h6 class="card-title">{{ object.City }} {{ object.state }}</h6>
+                <h6 class="card-title">{{ object.city }} {{ object.state }}</h6>
 
                 <div class="card-text">
                     <span>

@@ -3,7 +3,13 @@
 
 <div class="card">
   <div class="card-body">
-    <h5 class="card-title">{{ object.name }}</h5>
+    <div class="">
+      <h5 class="card-title">{{ object.name }}</h5>
+      {% if user.profile.shelter == object %}
+      <a class="btn btn-warning" href="{% url 'shelter-update' object.id %}" role="button">Edit Shelter</a>
+      {% endif %}
+    </div>
+
     <h6 class="card-subtitle mb-2 text-muted">{{object.phoneNumber}}</h6>
     <address class="card-text">
       {% if object.addressLine1 %}
@@ -27,6 +33,7 @@
       {{ object.zip }}
     </address>
     <a href="{{object.webSite}}">{{ object.name }}'s website</a>
+
   </div>
 </div>
 
