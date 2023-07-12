@@ -1,0 +1,47 @@
+[
+  {
+    "model": "shelters.Shelter",
+    "pk": 1,
+    "fields": {
+      "name": "Animal Shack",
+      "addressLine1": "123 Main St",
+      "addressLine2": "Suite 3",
+      "addressLine3": "Adoptions Department",
+      "city": "Springfield",
+      "state": "Illinois",
+      "zip": "55555",
+      "phoneNumber": "(555) 555-5555",
+      "webSite": "https://Animals.com"
+    }
+  },
+  {
+    "model": "shelters.Shelter",
+    "pk": 2,
+    "fields": {
+      "name": "Animal Zone",
+      "addressLine1": "123 Main St",
+      "addressLine2": "Suite 3",
+      "addressLine3": "Adoptions Department",
+      "city": "Springfield",
+      "state": "Illinois",
+      "zip": "55555",
+      "phoneNumber": "(555) 555-5555",
+      "webSite": "https://Animals.com"
+    }
+  },
+    {
+    "model": "shelters.Shelter",
+    "pk": 3,
+    "fields": {
+      "name": "Animals on the Loose",
+      "addressLine1": "123 Main St",
+      "addressLine2": "Suite 3",
+      "addressLine3": "Adoptions Department",
+      "city": "Springfield",
+      "state": "Illinois",
+      "zip": "55555",
+      "phoneNumber": "(555) 555-5555",
+      "webSite": "https://Animals.com"
+    }
+  }
+]
