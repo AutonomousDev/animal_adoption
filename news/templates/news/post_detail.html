@@ -1,0 +1,19 @@
+{% extends "news/components/base.html" %}
+
+{% block content %}
+<div>
+    <h1>{{ object.title}}</h1>
+    {% if object.author %}
+    <h4>{{object.author}}</h4>
+    {% endif %}
+    <h6>{{ object.date_created}}</h6>
+    <p>{{ object.body }}</p>
+    {% if object.animal %}
+    <div>
+        <a href="#" class="btn btn-primary">
+            Check the animal out!
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock content %}
