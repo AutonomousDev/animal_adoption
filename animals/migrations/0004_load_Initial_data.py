@@ -5,7 +5,11 @@ from django.core.management import call_command
 
 
 def load_fixture(apps, schema_editor):
+    call_command('loaddata', 'Availability')
     call_command('loaddata', 'Species')
+    call_command('loaddata', 'Breed')
+    call_command('loaddata', 'Disposition')
+    call_command('loaddata', 'Size')
     call_command('loaddata', 'Animals')
 
 

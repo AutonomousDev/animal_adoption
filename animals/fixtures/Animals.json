@@ -1,17 +1,19 @@
 [
   {
     "model": "animals.Animal",
-    "pk": 1, 
+    "pk": 1,
     "fields": {
-      "date_entered": "2022-01-01",
-      "species": 2,
+      "date_entered": "2023-07-14T23:00:50Z",
+      "species": 1,
       "age": 4,
       "breed": 1,
       "shelter": 1,
       "views": 1,
-      "availability": 1,
-      "disposition": 1,
-      "size": 1
+      "availability": 2,
+      "size": 3,
+      "disposition": [
+        1
+      ]
     }
   }
 ]

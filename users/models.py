@@ -5,7 +5,7 @@ from shelters.models import Shelter
 
 # Create your models here.
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     shelter = models.OneToOneField(Shelter, on_delete=models.SET_NULL, blank=True, null=True, default=None)
 
     def __str__(self):
