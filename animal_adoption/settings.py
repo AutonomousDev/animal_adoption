@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 from decouple import config
 from datetime import timedelta
+import django_heroku
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -35,6 +36,7 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [s.strip() for s in v.spl
 # Application definition
 
 INSTALLED_APPS = [
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -167,3 +169,5 @@ LOGIN_REDIRECT_URL = 'homepage'
 
 # Redirect to login page if authentication is needed
 LOGIN_URL = 'users-login'
+
+django_heroku.settings(locals())
