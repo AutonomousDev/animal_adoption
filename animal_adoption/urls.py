@@ -23,6 +23,7 @@ urlpatterns = [
     path('api/', include('api.urls')),
     path('news/', include('news.urls')),
     path('users/', include('users.urls')),
+    path('animals/', include('animals.urls')),
     path('shelters/', include('shelters.urls')),
     path('', news_views.home, name='homepage')
 ]

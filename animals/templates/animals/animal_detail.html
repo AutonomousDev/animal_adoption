@@ -1,0 +1,26 @@
+{% extends "news/components/base.html" %}
+{% block content %}
+
+{% if animal %}
+    <h1> Details for selected animal </h1>
+    <div class="container-fluid"> 
+        <div class="row">
+            <div class="col-lg-4">
+                <p> No image provided </p>
+                <img class="animal_picture" src="" alt="">
+            </div>
+            <div class="first-para col-lg-8">
+              <h2> {{ animal.species }}, {{ animal.age }} years</h2>
+              <ul> Location: {{ animal.shelter }} </ul>
+              <ul> Status: {{ animal.availability }} </ul>
+              <ul> Breed: {{ animal.breed }} </ul>
+              <ul> Size: {{ animal.size }} </ul>
+              <ul> Disposition: {{ animal.disposition }} </ul>
+            </div>
+        </div>
+      </div>
+{% else %}
+ <h2> No animal with that ID was found </h2>
+{% endif %}
+
+{% endblock content %}

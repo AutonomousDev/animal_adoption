@@ -16,7 +16,8 @@ class Animal(models.Model):
     size = models.ForeignKey('Size', on_delete=models.PROTECT)
 
     def __str__(self):
-        return self.species + " " + self.age
+        animal_str = str(self.species) + " , " + str(self.age) 
+        return animal_str
 
 
 class Species(models.Model):
@@ -48,6 +49,9 @@ class Availability(models.Model):
 
     def __str__(self):
         return self.availability
+    
+    class Meta:
+        verbose_name_plural = "availabilities"
 
 
 class Disposition(models.Model):
