@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (
     ListView,
     DetailView,
@@ -6,17 +7,40 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
+from django.utils import timezone
 
-from .models import Post
+from .models import News
+from animals.models import Animal
+from users.models import Profile
+from shelters.models import Shelter
+
+def home(request):
+    return render(request, 'news/home.html')
 
 # Create your views here.
 class NewsDetailView(DetailView):
-    model = Post
-    # template_name = 'news/post_list.html'
-    # context_object_name = 'posts'
-    # ordering = ['-date_posted']
-    # paginate_by = 5
+    model = News
 
 class NewsListView(ListView):
-    model = Post
+    model = News
+    ordering = ['-date_created']
+    paginate_by = 5
 
+class NewsCreateView(LoginRequiredMixin, CreateView):
+    model = News
+    fields = [
+        "title",
+        "body",
+        "animal"
+    ]
+    
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        profile = Profile.objects.filter(user=self.request.user).first()
+        if profile.shelter:
+            form.fields['animal'].queryset = Animal.objects.filter(shelter=profile.shelter)
+        return form
+    
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
