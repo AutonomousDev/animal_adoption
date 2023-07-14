@@ -161,7 +161,7 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 # default page after login
-LOGIN_REDIRECT_URL = 'news-home'
+LOGIN_REDIRECT_URL = 'homepage'
 
 # Redirect to login page if authentication is needed
 LOGIN_URL = 'users-login'

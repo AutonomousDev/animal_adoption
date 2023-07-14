@@ -1,7 +1,7 @@
 {% block content %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'news-home' %}">Pawfect Matchmaker</a>
+        <a class="navbar-brand" href="#">Pawfect Matchmaker</a>
         <button
                 class="navbar-toggler"
                 type="button"
@@ -16,10 +16,10 @@
         <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{% url 'news-home' %}">Home</a>
+                    <a class="nav-link active" aria-current="page" href="{% url 'homepage' %}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">News</a>
+                    <a class="nav-link" href="{% url 'news-list' %}">News</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'animals-list' %}">Available Animals</a>
