@@ -5,7 +5,11 @@ from django.core.management import call_command
 
 
 def load_fixture(apps, schema_editor):
+    call_command('loaddata', 'Availability')
     call_command('loaddata', 'Species')
+    call_command('loaddata', 'Breed')
+    call_command('loaddata', 'Disposition')
+    call_command('loaddata', 'Size')
     call_command('loaddata', 'Animals')
 
 
@@ -14,7 +18,8 @@ class Migration(migrations.Migration):
     dependencies = [
         ('animals', '0001_initial'),
         ('animals', '0002_rename_animals_animal'),
-        ('animals', '0003_alter_species_options')
+        ('animals', '0003_alter_species_options'),
+        ('shelters', '0007_load_sample_data')
     ]
 
     operations = [

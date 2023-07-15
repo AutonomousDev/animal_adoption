@@ -1,7 +1,7 @@
 [
   {
     "model": "animals.Animal",
-    "pk": 1, 
+    "pk": 1,
     "fields": {
       "date_entered": "2023-01-01T23:00:50Z",
       "name": "Catso",
