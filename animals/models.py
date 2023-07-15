@@ -1,11 +1,13 @@
 from django.db import models
 from django.utils import timezone
+from django.urls import reverse
 from shelters.models import Shelter
 
 
 # Create your models here.
 class Animal(models.Model):
     date_entered = models.DateTimeField(default=timezone.now)
+    name = models.CharField(max_length=100, null=True)
     species = models.ForeignKey('Species', on_delete=models.SET_NULL, blank=False, null=True)
     age = models.IntegerField()
     breed = models.ForeignKey('Breed', on_delete=models.SET_NULL, blank=False, null=True)
@@ -18,6 +20,13 @@ class Animal(models.Model):
     def __str__(self):
         animal_str = str(self.species) + " , " + str(self.age) 
         return animal_str
+    
+    def get_absolute_url(self):
+        """Returns the url to access a detailed record for this animal"""
+        return reverse('animals-detail', args=[str(self.id)])
+    
+    class Meta:
+        ordering = ['date_entered']
 
 
 class Species(models.Model):

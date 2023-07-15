@@ -2,15 +2,41 @@
 {% block content %}
 
 <h1>All Animals</h1>
+<span> 
+    {% if user.is_authenticated %}
+    {% if user.profile.shelter %}
+    <a class="btn btn-success" href="{% url 'animals-create' %}" role="button">Add an animal</a>
+    {% endif %}
+    {% endif %}
+</span>
 
-{# make into table & hyperlink @ each animal #}
 {% if animals %}
+<div class="row pt-4">
     {% for animal in animals %}
-        <ul> {{animal}} </ul>
+    <div class="col-sm-4">
+        <div class="card mt-4">
+            <img class="card-img-top" src="..." alt="">
+            <div class="card-body">
+                <h5 class="card-title">{{ animal.name }}</h5>
+                <div class="card-text">
+                    <span>
+                        {{ animal.species }}, {{ animal.age }}
+                    </span>
+                </div>
+                <br>
+                <a href="{{ animal.get_absolute_url }}" class="btn btn-primary">Animal details</a>
+            </div>
+        </div>
+    </div>
     {% endfor %}
- {{animal}}
+</div>
+
 {% else %}
- <h2> No animal selected </h2>
+ <h2> No animals found! </h2>
 {% endif %}
+
+<br>
+
+
 
 {% endblock content %}
