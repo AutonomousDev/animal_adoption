@@ -4,6 +4,7 @@
     "pk": 1, 
     "fields": {
       "date_entered": "2022-01-01",
+      "name": "Catso",
       "species": 2,
       "age": 4,
       "breed": 1,
@@ -12,6 +13,23 @@
       "availability": 1,
       "disposition": 1,
       "size": 1
+    }
+  },
+
+  {
+    "model": "animals.Animal",
+    "pk": 2, 
+    "fields": {
+      "date_entered": "2022-01-01",
+      "name": "Doggo",
+      "species": 1,
+      "age": 2,
+      "breed": 1,
+      "shelter": 2,
+      "views": 10,
+      "availability": 1,
+      "disposition": 1,
+      "size": 2
     }
   }
 ]
