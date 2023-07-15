@@ -19,12 +19,10 @@ from .models import Animal, Shelter
 class AnimalCreateView(LoginRequiredMixin, CreateView):
     model = Animal
     fields = [
-        "date_entered",
         "name",
         "species",
         "age",
         "breed",
-        "shelter",
         "views",
         "availability",
         "disposition",
@@ -44,12 +42,10 @@ class AnimalCreateView(LoginRequiredMixin, CreateView):
 class AnimalUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Animal
     fields = [
-        "date_entered",
         "name",
         "species",
         "age",
         "breed",
-        "shelter",
         "views",
         "availability",
         "disposition",
