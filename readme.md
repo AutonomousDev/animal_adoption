@@ -3,6 +3,10 @@
 You should use a virtual Environment so you python packages are the same version as the project and limited to only the 
 packages we need. Pycharm has this built in with venv.
 
+Install PostgreSQL and libpq. These are used in the Heroku deployed environment and dome dependencies in `requiremnts.txt` need them. You can continue to use sqlite3 for local development.
+https://www.postgresql.org/download/
+
+
 Navigate your terminal to the project root directory.
 
 Install package from the `requirements.txt` file with
