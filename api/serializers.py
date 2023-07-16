@@ -17,6 +17,7 @@ class AnimalSerializer(ModelSerializer):
             "disposition",
             "size",
         ]
+        read_only_fields = ["shelter", "views", "date_entered"]
 
 class SpeciesSerializer(ModelSerializer):
     class Meta:
