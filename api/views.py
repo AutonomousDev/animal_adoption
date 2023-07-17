@@ -63,7 +63,7 @@ class AnimalOptionsView(APIView):
     def get(self, request, format=None):
         species = apps.get_model("animals", "Species").objects.all()
         breeds = apps.get_model("animals", "Breed").objects.all()
-        sizes = apps.get_model("animals", "Sizes").objects.all()
+        sizes = apps.get_model("animals", "Size").objects.all()
         availabilities = apps.get_model("animals", "Availability").objects.all()
         dispositions = apps.get_model("animals", "Disposition").objects.all()
 
