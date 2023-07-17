@@ -1,3 +1,4 @@
+from typing import Optional
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (
@@ -36,7 +37,7 @@ class NewsCreateView(LoginRequiredMixin, CreateView):
     
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
-        profile = Profile.objects.filter(user=self.request.user).first()
+        profile = self.request.user.profile
         if profile.shelter:
             form.fields['animal'].queryset = Animal.objects.filter(shelter=profile.shelter)
         return form
@@ -44,3 +45,38 @@ class NewsCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+    
+class NewsUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = News
+    fields = [
+        "title",
+        "body",
+        "animal"
+    ]
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        profile = self.request.user.profile
+        if profile.shelter:
+            form.fields['animal'].queryset = Animal.objects.filter(shelter=profile.shelter)
+        return form
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+    
+    def test_func(self):
+        news = self.get_object()
+        if self.request.user == news.author:
+            return True
+        return False
+
+class NewsDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = News
+    success_url = '/news/'
+
+    def test_func(self):
+        news = self.get_object()
+        if self.request.user == news.author:
+            return True
+        return False

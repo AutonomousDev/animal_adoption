@@ -35,7 +35,7 @@ class AnimalCreateView(LoginRequiredMixin, CreateView):
         return context
 
     def form_valid(self, form):
-        form.shelter = self.request.user.profile.shelter
+        form.instance.shelter = self.request.user.profile.shelter
         form.save()
         return super().form_valid(form)
 
