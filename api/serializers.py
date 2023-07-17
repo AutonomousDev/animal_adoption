@@ -23,26 +23,31 @@ class SpeciesSerializer(ModelSerializer):
     class Meta:
         model = apps.get_model("animals", "Species")
         fields = ["name"]
+        read_only_fields = ["name"]
 
 class BreedSerializer(ModelSerializer):
     class Meta:
         model = apps.get_model("animals", "Breed")
         fields = ["name"]
+        read_only_fields = ["name"]
 
 class SizeSerializer(ModelSerializer):
     class Meta:
         model = apps.get_model("animals", "Size")
         fields = ["name"]
+        read_only_fields = ["name"]
 
 class AvailabilitySerializer(ModelSerializer):
     class Meta:
         model = apps.get_model("animals", "Availability")
         fields = ["availability"]
+        read_only_fields = ["availability"]
 
 class DispositionSerializer(ModelSerializer):
     class Meta:
         model = apps.get_model("animals", "Disposition")
         fields = ["disposition"]
+        read_only_fields = ["disposition"]
 
 class NewsSerializer(ModelSerializer):
     class Meta:
@@ -54,6 +59,7 @@ class NewsSerializer(ModelSerializer):
             "author",
             "animal",
         ]
+        read_only_fields = ["author", "date_created"]
 
 class ShelterSerializer(ModelSerializer):
     class Meta:
