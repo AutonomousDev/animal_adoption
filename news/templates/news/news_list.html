@@ -1,6 +1,6 @@
 {% extends "news/components/base.html" %}
 {% block content %}
-<h1>News Reel</h1>
+<h1>Latest News</h1>
 
 {% if user.is_authenticated and user.profile.shelter %}
 <a class="btn btn-success" href="{% url 'news-create' %}" role="button">New Post</a>
