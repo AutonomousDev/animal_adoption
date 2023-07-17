@@ -22,7 +22,7 @@ class FindAnimalsView(APIView):
     options.
     """
 
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
         queryset = apps.get_model("animals", "Animal").objects.all()
@@ -47,7 +47,7 @@ class NewsListView(ListAPIView):
     127.0.0.1:8000/api/news/?limit=3
     """
     
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     queryset = apps.get_model("news", "News").objects.all()
     serializer_class = NewsSerializer
     pagination_class = LimitOffsetPagination
@@ -58,7 +58,7 @@ class AnimalOptionsView(APIView):
     Get all possible filter options that can be used for animals.
     """
 
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, format=None):
         species = apps.get_model("animals", "Species").objects.all()
