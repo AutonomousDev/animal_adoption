@@ -5,8 +5,8 @@
     <div>
         <h1>{{object.title}}</h1>
         {% if object.author == user %}  
-            <a class='btn btn-secondary' href="#">Update</a>
-            <a class='btn btn-danger' href="#">Delete</a> 
+            <a class='btn btn-secondary' href="{% url 'news-update' object.id %}">Update</a>
+            <a class='btn btn-danger' href="{% url 'news-delete' object.id %}">Delete</a> 
         {% endif %}    
     </div>
     <h4>{{object.author}}</h4>
