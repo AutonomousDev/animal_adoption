@@ -10,7 +10,7 @@ class Animal(models.Model):
     name = models.CharField(max_length=100, null=True)
     species = models.ForeignKey('Species', on_delete=models.SET_NULL, blank=False, null=True)
     age = models.IntegerField()
-    breed = models.ForeignKey('Breed', on_delete=models.SET_NULL, blank=False, null=True)
+    breed = models.ForeignKey('Breed', on_delete=models.SET_NULL, blank=True, null=True)
     shelter = models.ForeignKey(Shelter, on_delete=models.CASCADE, blank=False)
     views = models.IntegerField(default=0)
     availability = models.ForeignKey('Availability', on_delete=models.PROTECT)

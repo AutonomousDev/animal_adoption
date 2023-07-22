@@ -1,5 +1,6 @@
 from typing import Any
 from django.db import models
+from django.db.models import F
 from django.shortcuts import render, get_object_or_404, render
 from django.views import generic
 from django.urls import reverse
@@ -23,7 +24,6 @@ class AnimalCreateView(LoginRequiredMixin, CreateView):
         "species",
         "age",
         "breed",
-        "views",
         "availability",
         "disposition",
         "size"
@@ -46,7 +46,6 @@ class AnimalUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         "species",
         "age",
         "breed",
-        "views",
         "availability",
         "disposition",
         "size"
@@ -80,13 +79,15 @@ class AnimalListView(generic.ListView):
     context_object_name = 'animals'
 
 
-
 class AnimalDetailView(generic.DetailView):
     model = Animal
     context_object_name = 'animal'
 
-    def get_animal(self):
-        return Animal.objects.get(pk=self.kwargs.get("pk"))
+    def get(self, request, *args, **kwargs):
+        animal = self.get_object()
+        Animal.objects.filter(pk=animal.pk).update(views=F('views') + 1)
+        return super().get(request, *args, **kwargs)
+
     
 
 
