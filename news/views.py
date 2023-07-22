@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (
     ListView,
+
     DetailView,
     CreateView,
     UpdateView,
@@ -15,7 +16,16 @@ from users.models import Profile
 from shelters.models import Shelter
 
 def home(request):
-    return render(request, 'news/home.html')
+    """Returns the three most recent posts and animals to render home page"""
+    latest_news = News.objects.order_by("-date_created")[:3]
+    latest_animals = Animal.objects.order_by("-date_entered")[:3]
+
+    context = {
+        'news': latest_news,
+        'animals': latest_animals,
+    }
+
+    return render(request, 'news/home.html', context=context)
 
 # Create your views here.
 class NewsDetailView(DetailView):

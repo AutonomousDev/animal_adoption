@@ -3,17 +3,24 @@
 
 {% if animal %}
 <h1> Details for {{ animal.name }} </h1>
+{% for disposition in animal.disposition.all %}
+<span class="badge bg-info text-dark">  {{ disposition }}  </span>
+{% endfor %} 
+<br>
 <div class="card">
   <div class="card-body">
-    <img class="card-img-top" src="..." alt="">
+    <!-- <img class="card-img-top" src="..." alt=""> -->
     <div class="card-text">
       <h6> {{ animal.species }}, {{ animal.age }} years</h6>
       <br>
       <p> Location: {{ animal.shelter }} </p>
       <p> Status: {{ animal.availability }} </p>
+      {% if animal.breed %}
       <p> Breed: {{ animal.breed }} </p>
+      {% endif %}
       <p> Size: {{ animal.size }} </p>
-      <p> Disposition: {{ animal.disposition }} </p>
+      <br>
+      <p> This animal has been viewed {{ animal.views }} times!</p>
     </div>
     <div class="">
       {% if user.profile.shelter == object.shelter %}

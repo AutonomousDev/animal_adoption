@@ -35,7 +35,7 @@ class ShelterCreateView(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(ShelterCreateView, self).get_context_data(*args, **kwargs)
-        context['title'] = "Create Job"
+        context['title'] = "Create Shelter"
         return context
 
     def form_valid(self, form):
