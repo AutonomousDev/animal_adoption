@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('animals', '0004_load_Initial_data'),
+        ('animals', '0003_alter_species_options'),
     ]
 
     operations = [

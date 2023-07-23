@@ -8,7 +8,6 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('animals', '0004_load_Initial_data'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ('news', '0004_rename_post_news'),
     ]

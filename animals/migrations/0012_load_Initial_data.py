@@ -16,9 +16,7 @@ def load_fixture(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('animals', '0001_initial'),
-        ('animals', '0002_rename_animals_animal'),
-        ('animals', '0003_alter_species_options'),
+        ('animals', '0011_alter_animal_disposition_alter_animal_image_and_more'),
         ('shelters', '0007_load_sample_data')
     ]
 

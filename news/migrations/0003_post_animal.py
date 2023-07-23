@@ -7,7 +7,6 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('animals', '0004_load_Initial_data'),
         ('news', '0002_rename_posts_post'),
     ]
 
