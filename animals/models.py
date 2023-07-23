@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.urls import reverse
 from shelters.models import Shelter
+from PIL import Image
 
 
 # Create your models here.
@@ -14,17 +15,28 @@ class Animal(models.Model):
     shelter = models.ForeignKey(Shelter, on_delete=models.CASCADE, blank=False)
     views = models.IntegerField(default=0)
     availability = models.ForeignKey('Availability', on_delete=models.PROTECT)
-    disposition = models.ManyToManyField('Disposition')
-    size = models.ForeignKey('Size', on_delete=models.PROTECT)
+    disposition = models.ManyToManyField('Disposition', blank=True)
+    size = models.ForeignKey('Size', on_delete=models.PROTECT, blank=True)
+    image = models.ImageField(default='placeholder_animal.png', upload_to='animal_pics', blank=True)
 
     def __str__(self):
-        animal_str = str(self.species) + " , " + str(self.age) 
+        animal_str = f"{self.name} {self.species}, {self.age}"
         return animal_str
     
     def get_absolute_url(self):
         """Returns the url to access a detailed record for this animal"""
         return reverse('animals-detail', args=[str(self.id)])
-    
+
+    # def save(self, *args, **kwargs):
+    #     super().save(*args, **kwargs)
+    #
+    #     img = Image.open(self.image.path)
+    #
+    #     if img.height > 300 or img.width > 300:
+    #         output_size = (300, 300)
+    #         img.thumbnail(output_size)
+    #         img.save(self.image.path)
+
     class Meta:
         ordering = ['date_entered']
 
