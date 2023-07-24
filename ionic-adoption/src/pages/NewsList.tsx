@@ -66,7 +66,7 @@ const NewsList: React.FC = () => {
                         /> */}
                     </IonCardContent>
                     <IonCardContent>
-                        <p>{post.author ? `By: ${post.author}` : ""}</p>
+                        <p>{post.author ? `By: ${post.author.username}` : ""}</p>
                         <p>{post.body}</p>
                     </IonCardContent>
                 </IonCard>
