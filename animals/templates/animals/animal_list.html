@@ -15,7 +15,9 @@
     {% for animal in animals %}
     <div class="col-sm-4">
         <div class="card mt-4">
-            <!-- <img class="card-img-top" src="..." alt=""> -->
+            <div class="ratio ratio-1x1">
+                <img class="img-thumbnail" style="object-fit: cover" src="{{ animal.image.url }}" alt="">
+            </div>
             <div class="card-body">
                 <h5 class="card-title">{{ animal.name }}</h5>
                 <div class="card-text">
@@ -32,11 +34,10 @@
 </div>
 
 {% else %}
- <h2> No animals found! </h2>
+<h2> No animals found! </h2>
 {% endif %}
 
 <br>
-
 
 
 {% endblock content %}

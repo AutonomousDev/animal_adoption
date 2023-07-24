@@ -17,6 +17,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 from .models import Animal, Shelter
 
+
 class AnimalCreateView(LoginRequiredMixin, CreateView):
     model = Animal
     fields = [
@@ -26,7 +27,8 @@ class AnimalCreateView(LoginRequiredMixin, CreateView):
         "breed",
         "availability",
         "disposition",
-        "size"
+        "size",
+        "image"
     ]
 
     def get_context_data(self, *args, **kwargs):
@@ -39,6 +41,7 @@ class AnimalCreateView(LoginRequiredMixin, CreateView):
         form.save()
         return super().form_valid(form)
 
+
 class AnimalUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Animal
     fields = [
@@ -48,7 +51,8 @@ class AnimalUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         "breed",
         "availability",
         "disposition",
-        "size"
+        "size",
+        "image"
     ]
 
     def test_func(self):
@@ -87,9 +91,4 @@ class AnimalDetailView(generic.DetailView):
         animal = self.get_object()
         Animal.objects.filter(pk=animal.pk).update(views=F('views') + 1)
         return super().get(request, *args, **kwargs)
-
-    
-
-
-
 

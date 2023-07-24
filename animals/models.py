@@ -14,17 +14,19 @@ class Animal(models.Model):
     shelter = models.ForeignKey(Shelter, on_delete=models.CASCADE, blank=False)
     views = models.IntegerField(default=0)
     availability = models.ForeignKey('Availability', on_delete=models.PROTECT)
-    disposition = models.ManyToManyField('Disposition')
-    size = models.ForeignKey('Size', on_delete=models.PROTECT)
+    disposition = models.ManyToManyField('Disposition', blank=True)
+    size = models.ForeignKey('Size', on_delete=models.PROTECT, blank=True)
+    image = models.ImageField(default='placeholder_animal.png', upload_to='animal_pics', blank=True)
 
     def __str__(self):
-        animal_str = str(self.species) + " , " + str(self.age) 
+        animal_str = f"{self.name} {self.species}, {self.age}"
         return animal_str
     
     def get_absolute_url(self):
         """Returns the url to access a detailed record for this animal"""
         return reverse('animals-detail', args=[str(self.id)])
-    
+
+
     class Meta:
         ordering = ['date_entered']
 
@@ -68,4 +70,3 @@ class Disposition(models.Model):
 
     def __str__(self):
         return self.disposition
-
