@@ -24,6 +24,7 @@ import "./theme/variables.css";
 /* Pages */
 import Login from "./pages/Login";
 import Tabs from "./pages/Tabs";
+import Register from "./pages/Register";
 
 setupIonicReact();
 
@@ -33,6 +34,9 @@ const App: React.FC = () => (
             <IonRouterOutlet>
                 <Route exact path="/">
                     <Login />
+                </Route>
+                <Route path="/register">
+                    <Register />
                 </Route>
                 {/* The following has to be separated so that the login doesn't have a tab bar */}
                 <Route path="/app">
