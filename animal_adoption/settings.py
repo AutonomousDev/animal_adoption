@@ -187,3 +187,11 @@ AWS_S3_REGION_NAME = 'us-west-1'
 
 django_heroku.settings(locals())
 
+# Email settings for sending individual emails using send_mail
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Gmail's SMTP server hostname
+EMAIL_PORT = 587  # Gmail's TLS-enabled port number
+EMAIL_USE_TLS = True  # Use True for TLS-enabled connections with Gmail
+EMAIL_USE_SSL = False
+EMAIL_HOST_USER = 'pawfectmatcher@gmail.com'  # Your Gmail email address
+EMAIL_HOST_PASSWORD = 'irgwnebebdrgumbg'  # Replace with your Gmail account password

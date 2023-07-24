@@ -6,6 +6,10 @@ from django.views import generic
 from django.urls import reverse
 from django.http import request
 from django.shortcuts import render
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.urls import reverse_lazy
+from django.contrib.sites.shortcuts import get_current_site
 from django.views.generic import (
     ListView,
     DetailView,
@@ -14,6 +18,7 @@ from django.views.generic import (
     DeleteView
 )
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.models import User
 
 from .models import Animal, Shelter
 
@@ -39,7 +44,23 @@ class AnimalCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.shelter = self.request.user.profile.shelter
         form.save()
-        return super().form_valid(form)
+        response = super().form_valid(form)
+        animal = self.object 
+        if str(animal.availability) == "Available":
+            self.send_email(animal)
+        return response
+    
+    def send_email(self, animal):
+            current_site = get_current_site(self.request)
+            domain = current_site.domain
+            animal_detail_url = f"http://{domain}{animal.get_absolute_url()}"
+            subject = 'New Animal Available!'
+            html_message = render_to_string('animal_email.html', {'animal': animal, 'animal_detail_url': animal_detail_url})
+            from_email = 'PawfectMatch@gmail.com'
+            # recipient_list = ['can place your email here for testing']
+            recipient_list = User.objects.values_list('email', flat=True)
+            for recipient in recipient_list:
+                send_mail(subject, html_message, from_email, [recipient], html_message=html_message)
 
 
 class AnimalUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -67,7 +88,7 @@ class AnimalUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 class AnimalDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     """Deletes the posts and redirects to home."""
     model = Animal
-    success_url = '/'
+    success_url = '/animals'
 
     def test_func(self):
         """Check that the user is associated with the same shelter as the animal"""
