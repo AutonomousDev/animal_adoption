@@ -193,5 +193,5 @@ EMAIL_HOST = 'smtp.gmail.com'  # Gmail's SMTP server hostname
 EMAIL_PORT = 587  # Gmail's TLS-enabled port number
 EMAIL_USE_TLS = True  # Use True for TLS-enabled connections with Gmail
 EMAIL_USE_SSL = False
-EMAIL_HOST_USER = 'pawfectmatcher@gmail.com'  # Your Gmail email address
-EMAIL_HOST_PASSWORD = 'irgwnebebdrgumbg'  # Replace with your Gmail account password
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
