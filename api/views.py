@@ -7,12 +7,14 @@ from .serializers import (
     SizeSerializer,
     AvailabilitySerializer,
     DispositionSerializer,
+    UserSerializer
 )
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView
 from rest_framework.pagination import LimitOffsetPagination
+from django.contrib.auth.models import User
 
 class FindAnimalsView(APIView):
     """
@@ -80,3 +82,11 @@ class AnimalOptionsView(APIView):
             "availabilities": availability_serializer.data,
             "dispositions": disposition_serializer.data,
         })
+
+class UserCreateView(CreateAPIView):
+    """
+    Only used for user registration
+    """
+
+    queryset = User.objects.all()
+    serializer_class = UserSerializer

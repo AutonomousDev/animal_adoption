@@ -1,5 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 from django.apps import apps
+from django.contrib.auth.models import User
 
 class AnimalSerializer(ModelSerializer):
     class Meta:
@@ -75,3 +76,21 @@ class ShelterSerializer(ModelSerializer):
             "phoneNumber",
             "webSite"
         ]
+
+class UserSerializer(ModelSerializer):
+    # Using the example:
+    # https://www.django-rest-framework.org/api-guide/serializers/#additional-keyword-arguments
+    class Meta:
+        model = User
+        fields = ["username", "email", "password"]
+        extra_kwargs = {"password": {"write_only": True}}
+
+    def create(self, validated_data):
+        user = User(
+            email=validated_data["email"],
+            username=validated_data["username"]
+        )
+        user.set_password(validated_data["password"])
+        user.save()
+
+        return user
