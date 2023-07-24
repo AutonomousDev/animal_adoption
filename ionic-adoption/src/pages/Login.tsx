@@ -31,7 +31,7 @@ const Login: React.FC = () => {
         const response = await fetch(`${BASE}/login/`, requestOptions);
         if (response.ok) {
             const data = await response.json();
-            const token = data.token;
+            const token = data.access;
 
             // TODO: Long term I might not want to store in localStorage.
             localStorage.setItem("token", token);
