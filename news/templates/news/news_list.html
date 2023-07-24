@@ -15,7 +15,7 @@
         <div class="card-body">
             <a href="{{ object.get_absolute_url }}" class="btn btn-primary">View Details</a>
             {% if object.animal %}
-            <img src="" alt="animal" height="200px" width="200px">
+                <img src="{{ object.animal.image.url }}" alt="animal" class="img-thumbnail">
             {% endif %}
         </div>
     </div>

@@ -187,4 +187,3 @@ AWS_S3_REGION_NAME = 'us-west-1'
 
 django_heroku.settings(locals())
 
-
