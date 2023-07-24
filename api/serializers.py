@@ -1,23 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 from django.apps import apps
-
-class AnimalSerializer(ModelSerializer):
-    class Meta:
-        model = apps.get_model("animals", "Animal")
-        # writing out field names here for easier reference
-        fields = [
-            "date_entered",
-            "name",
-            "species",
-            "age",
-            "breed",
-            "shelter",
-            "views",
-            "availability",
-            "disposition",
-            "size",
-        ]
-        read_only_fields = ["shelter", "views", "date_entered"]
+from django.contrib.auth.models import User
 
 class SpeciesSerializer(ModelSerializer):
     class Meta:
@@ -49,18 +32,6 @@ class DispositionSerializer(ModelSerializer):
         fields = ["disposition"]
         read_only_fields = ["disposition"]
 
-class NewsSerializer(ModelSerializer):
-    class Meta:
-        model = apps.get_model("news", "News")
-        fields = [
-            "title",
-            "body",
-            "date_created",
-            "author",
-            "animal",
-        ]
-        read_only_fields = ["author", "date_created"]
-
 class ShelterSerializer(ModelSerializer):
     class Meta:
         model = apps.get_model("shelters", "Shelter")
@@ -75,3 +46,63 @@ class ShelterSerializer(ModelSerializer):
             "phoneNumber",
             "webSite"
         ]
+
+class UserSerializer(ModelSerializer):
+    # Using the example:
+    # https://www.django-rest-framework.org/api-guide/serializers/#additional-keyword-arguments
+    class Meta:
+        model = User
+        fields = ["username", "email", "password"]
+        extra_kwargs = {"password": {"write_only": True}}
+
+    def create(self, validated_data):
+        user = User(
+            email=validated_data["email"],
+            username=validated_data["username"]
+        )
+        user.set_password(validated_data["password"])
+        user.save()
+
+        return user
+    
+class AnimalSerializer(ModelSerializer):
+    species = SpeciesSerializer()
+    breed = BreedSerializer()
+    shelter = ShelterSerializer()
+    availability = AvailabilitySerializer()
+    size = SizeSerializer()
+    disposition = DispositionSerializer()
+
+    class Meta:
+        model = apps.get_model("animals", "Animal")
+        # writing out field names here for easier reference
+        fields = [
+            "date_entered",
+            "name",
+            "species",
+            "age",
+            "breed",
+            "shelter",
+            "views",
+            "availability",
+            "disposition",
+            "size",
+            "image",
+        ]
+        read_only_fields = ["shelter", "views", "date_entered"]
+
+class NewsSerializer(ModelSerializer):
+    author = UserSerializer(read_only=True)
+    animal = AnimalSerializer()
+
+    class Meta:
+        model = apps.get_model("news", "News")
+        fields = [
+            "id",
+            "title",
+            "body",
+            "date_created",
+            "author",
+            "animal",
+        ]
+        read_only_fields = ["id", "author", "date_created"]

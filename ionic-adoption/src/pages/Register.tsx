@@ -15,37 +15,58 @@ import {
 import React from "react";
 import { BASE } from "../constants";
 
-const Login: React.FC = () => {
+const Register: React.FC = () => {
     const router = useIonRouter();
     const [user, setUser] = React.useState("");
+    const [email, setEmail] = React.useState("");
     const [password, setPass] = React.useState("");
     const [presentAlert] = useIonAlert();
 
-    const doLogin = async () => {
+    const doRegister = async () => {
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ username: user, password: password }),
+            body: JSON.stringify({
+                username: user,
+                email: email,
+                password: password,
+            }),
         };
 
-        const response = await fetch(`${BASE}/login/`, requestOptions);
+        const response = await fetch(`${BASE}/register/`, requestOptions);
+        
         if (response.ok) {
-            const data = await response.json();
-            const token = data.access;
-
-            // TODO: Long term I might not want to store in localStorage.
-            localStorage.setItem("token", token);
-            // Options prevent the user from going back:
-            router.push("/app", "root", "replace");
+            router.push("/");
         }
         else {
-            console.log("Invalid username or password");
-            presentAlert({
-                header: "Error",
-                subHeader: "",
-                message: "Invalid username or password",
-                buttons: ["OK"],
-            });
+            const data = await response.json();
+
+            if(!data) {
+                presentAlert({
+                    header: "Error",
+                    subHeader: "",
+                    message: "Unknown error.",
+                    buttons: ["OK"],
+                });
+            }
+            else {
+                if(data.email) {
+                    presentAlert({
+                        header: "Error",
+                        subHeader: "",
+                        message: "Please enter a valid email address.",
+                        buttons: ["OK"],
+                    });
+                }
+                else if(data.username) {
+                    presentAlert({
+                        header: "Error",
+                        subHeader: "",
+                        message: "Username is either invalid or already taken.",
+                        buttons: ["OK"],
+                    });
+                }
+            }
         }
     };
 
@@ -69,6 +90,15 @@ const Login: React.FC = () => {
                         ></IonInput>
                         <IonInput
                             className="ion-margin-top"
+                            label="Email"
+                            type="email"
+                            fill="outline"
+                            placeholder="doglover99@example.com"
+                            labelPlacement="floating"
+                            onIonChange={(e) => setEmail(e.detail.value)}
+                        ></IonInput>
+                        <IonInput
+                            className="ion-margin-top"
                             label="Password"
                             type="password"
                             fill="outline"
@@ -79,26 +109,15 @@ const Login: React.FC = () => {
                             className="ion-margin-top"
                             type="submit"
                             expand="block"
-                            onClick={doLogin}
+                            onClick={doRegister}
                         >
-                            Login
-                        </IonButton>
-                        <IonButton
-                            className="ion-margin-top"
-                            type="button"
-                            expand="block"
-                            routerLink="/register"
-                        >
-                            New Account
+                            Create New Account
                         </IonButton>
                     </IonCardContent>
                 </IonCard>
             </IonContent>
-            {/* <IonFooter>
-                <IonToolbar className="ion-padding">Blah blah footer</IonToolbar>
-            </IonFooter> */}
         </IonPage>
     );
 };
 
-export default Login;
+export default Register;

@@ -1,6 +1,6 @@
 from django.urls import path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenBlacklistView
-from .views import FindAnimalsView, NewsListView, AnimalOptionsView
+from .views import FindAnimalsView, NewsListView, AnimalOptionsView, UserCreateView
 
 urlpatterns = [
     path('animals/', FindAnimalsView.as_view()),
@@ -10,4 +10,5 @@ urlpatterns = [
     path('login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     # This is basically the logout:
     path('token/blacklist/', TokenBlacklistView.as_view(), name='token_blacklist'),
+    path('register/', UserCreateView.as_view(), name='api_register'),
 ]
