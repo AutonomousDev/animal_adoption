@@ -87,6 +87,7 @@ class AnimalSerializer(ModelSerializer):
             "availability",
             "disposition",
             "size",
+            "image",
         ]
         read_only_fields = ["shelter", "views", "date_entered"]
 

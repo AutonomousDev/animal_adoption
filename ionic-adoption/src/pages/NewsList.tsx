@@ -50,6 +50,18 @@ const NewsList: React.FC = () => {
     //     console.log("ionViewWillEnter event fired");
     // });
 
+    function createImg(post_animal) {
+        if (post_animal && post_animal.image) {
+            return (
+                <IonCardContent>
+                    <img width="100" height="100" src={post_animal.image} />
+                </IonCardContent>
+            );
+        }
+
+        return "";
+    }
+
     return (
         <IonContent>
             {posts.map((post) => (
@@ -58,13 +70,8 @@ const NewsList: React.FC = () => {
                         <IonCardTitle>{post.title}</IonCardTitle>
                         {/* <IonCardSubtitle></IonCardSubtitle> */}
                     </IonCardHeader>
-
-                    <IonCardContent>
-                        {/* <img
-                            alt="Silhouette of mountains"
-                            src="https://placekitten.com/100/100"
-                        /> */}
-                    </IonCardContent>
+                    {createImg(post.animal)}
+                    
                     <IonCardContent>
                         <p>{post.author ? `By: ${post.author.username}` : ""}</p>
                         <p>{post.body}</p>
