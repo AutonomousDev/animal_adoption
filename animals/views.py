@@ -13,7 +13,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 
 from .models import Animal, Availability
-from .forms import AnimalCreateForm
+from .forms import AnimalCreateForm, AnimalUpdateForm
 
 
 class AnimalCreateView(LoginRequiredMixin, CreateView):
@@ -52,16 +52,8 @@ class AnimalCreateView(LoginRequiredMixin, CreateView):
 
 class AnimalUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Animal
-    fields = [
-        "name",
-        "species",
-        "age",
-        "breed",
-        "availability",
-        "disposition",
-        "size",
-        "image"
-    ]
+    form_class = AnimalUpdateForm
+
 
     def test_func(self):
         """Check that the user is associated with the same shelter as the animal"""
