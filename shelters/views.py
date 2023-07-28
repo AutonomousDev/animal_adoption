@@ -70,7 +70,7 @@ class ShelterUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 class ShelterDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     """Deletes the posts and redirects to home."""
     model = Shelter
-    success_url = '/'
+    success_url = '/shelters'
 
     def test_func(self):
         """Logic for checking the current user is the same as the author before they can

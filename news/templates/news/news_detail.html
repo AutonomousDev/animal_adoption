@@ -13,8 +13,9 @@
     <h6>{{ object.date_created}}</h6>
     <p>{{ object.body }}</p>
     {% if object.animal %}
+        <img src="{{ object.animal.image.url }}" alt="animal" class="img-fluid">
         <div>
-            <a href="#" class="btn btn-primary">
+            <a href="{% url 'animals-detail' object.animal.id %}" class="btn btn-primary">
                 Check the animal out!
             </a>
         </div>
