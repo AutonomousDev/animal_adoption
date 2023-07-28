@@ -81,7 +81,7 @@ class AnimalListView(ListView):
 class AnimalFilterView(FilterView):
     model = Animal
     context_object_name = 'animals'
-    filterset_fields = AnimalFilter.get_fields()
+    filterset_class = AnimalFilter
 
 
 class AnimalDetailView(DetailView):
