@@ -58,7 +58,11 @@ class AnimalCreateView(LoginRequiredMixin, CreateView):
             html_message = render_to_string('animal_email.html', {'animal': animal, 'animal_detail_url': animal_detail_url})
             from_email = 'PawfectMatch@gmail.com'
             # recipient_list = ['can place your email here for testing']
-            recipient_list = User.objects.values_list('email', flat=True)
+            # recipient_list = User.objects.values_list('email', flat=True)
+            recipient_list = []
+            for user in User.objects.all():
+                if user.profile.subscribed:
+                    recipient_list.append(user.email)
             for recipient in recipient_list:
                 send_mail(subject, html_message, from_email, [recipient], html_message=html_message)
 
