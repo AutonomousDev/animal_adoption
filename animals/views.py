@@ -31,8 +31,7 @@ class AnimalCreateView(LoginRequiredMixin, CreateView):
         form.instance.availability = availability_available
         response = super().form_valid(form)
         animal = self.object 
-        if str(animal.availability) == "Available":
-            self.send_email(animal)
+        self.send_email(animal)
         return response
     
     def send_email(self, animal):
