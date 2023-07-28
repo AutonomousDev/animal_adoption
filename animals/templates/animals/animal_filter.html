@@ -1,0 +1,59 @@
+{% extends "news/components/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<h1>Animals</h1>
+
+<div class="row">
+<div class="col-lg-3 col-md-12">
+    <span>
+    {% if user.is_authenticated %}
+    {% if user.profile.shelter %}
+    <a class="btn btn-success mb-3" href="{% url 'animals-create' %}" role="button">Add an animal</a>
+    {% endif %}
+    {% endif %}
+</span>
+    <form method="get">
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Filter Results</legend>
+            {{ filter.form|crispy}}
+        </fieldset>
+
+        <button class="btn btn-primary" type="submit">
+            Search
+        </button>
+    </form>
+</div>
+<div class="col-lg-9 col-md-12">
+    {% if animals %}
+    <div class="row pt-4">
+        {% for animal in animals %}
+        <div class="col-sm-4">
+            <div class="card mt-4">
+                <div class="ratio ratio-1x1">
+                    <img class="img-thumbnail" style="object-fit: cover" src="{{ animal.image.url }}" alt="">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ animal.name }}</h5>
+                    <div class="card-text">
+                    <span>
+                        {{ animal.species }}, {{ animal.age }}
+                    </span>
+                    </div>
+                    <br>
+                    <a href="{{ animal.get_absolute_url }}" class="btn btn-primary">Animal details</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% else %}
+    <h2> No animals found! </h2>
+    {% endif %}
+</div>
+</div>
+<br>
+
+
+{% endblock content %}
