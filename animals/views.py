@@ -14,6 +14,8 @@ from django.contrib.auth.models import User
 
 from .models import Animal, Availability
 from .forms import AnimalCreateForm, AnimalUpdateForm
+from .filters import AnimalFilter
+from django_filters.views import FilterView
 
 
 class AnimalCreateView(LoginRequiredMixin, CreateView):
@@ -76,11 +78,17 @@ class AnimalDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return True
         else:
             return False
-    
+
 
 class AnimalListView(ListView):
     model = Animal
     context_object_name = 'animals'
+
+
+class AnimalFilterView(FilterView):
+    model = Animal
+    context_object_name = 'animals'
+    filterset_class = AnimalFilter
 
 
 class AnimalDetailView(DetailView):
