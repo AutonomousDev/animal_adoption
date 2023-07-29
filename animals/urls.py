@@ -4,11 +4,12 @@ from .views import (
     AnimalDetailView, 
     AnimalCreateView,
     AnimalUpdateView,
-    AnimalDeleteView
+    AnimalDeleteView,
+    AnimalFilterView
 )
 
 urlpatterns = [
-    path('', AnimalListView.as_view(), name='animals-list'),
+    path('', AnimalFilterView.as_view(), name='animals-list'),
     path('<int:pk>/', AnimalDetailView.as_view(), name='animals-detail'),
     path('new/', AnimalCreateView.as_view(), name='animals-create'),
     path('<int:pk>/update/', AnimalUpdateView.as_view(), name='animal-update'),

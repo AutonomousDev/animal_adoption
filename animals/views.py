@@ -1,14 +1,6 @@
-from typing import Any
-from django.db import models
 from django.db.models import F
-from django.shortcuts import render, get_object_or_404, render
-from django.views import generic
-from django.urls import reverse
-from django.http import request
-from django.shortcuts import render
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
-from django.urls import reverse_lazy
 from django.contrib.sites.shortcuts import get_current_site
 from django.views.generic import (
     ListView,
@@ -19,8 +11,9 @@ from django.views.generic import (
 )
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
-
-from .models import Animal, Shelter
+from .models import Animal
+from .filters import AnimalFilter
+from django_filters.views import FilterView
 
 
 class AnimalCreateView(LoginRequiredMixin, CreateView):
@@ -97,14 +90,20 @@ class AnimalDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return True
         else:
             return False
-    
 
-class AnimalListView(generic.ListView):
+
+class AnimalListView(ListView):
     model = Animal
     context_object_name = 'animals'
 
 
-class AnimalDetailView(generic.DetailView):
+class AnimalFilterView(FilterView):
+    model = Animal
+    context_object_name = 'animals'
+    filterset_class = AnimalFilter
+
+
+class AnimalDetailView(DetailView):
     model = Animal
     context_object_name = 'animal'
 
