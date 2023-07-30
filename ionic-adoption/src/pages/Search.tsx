@@ -1,40 +1,189 @@
 import {
-    // IonAvatar,
     IonCard,
     IonCardContent,
     IonCardHeader,
-    IonCardSubtitle,
     IonCardTitle,
     IonContent,
-    // IonHeader,
-    // IonInfiniteScroll,
-    // IonInfiniteScrollContent,
-    // IonItem,
-    // IonLabel,
-    // IonList,
-    // IonPage,
-    // IonTitle,
-    // IonToolbar,
+    IonButton,
+    IonSelect,
+    IonSelectOption,
+    IonItem,
+    IonLabel,
+    IonCheckbox,
+    useIonAlert,
+    IonRadioGroup,
+    IonRadio,
 } from "@ionic/react";
 import React from "react";
+import { BASE } from "../constants";
 
 const Search: React.FC = () => {
+    const [availabilities, setAvailabilities] = React.useState([]);
+    const [availabilitiesState, setAvailabilitiesState] = React.useState(-1);
+    // const [breeds, setBreeds] = React.useState([]);
+    // const [breedsState, setBreedsState] = React.useState("");
+    // const [dispositions, setDispositions] = React.useState([]);
+    // const [dispositionsState, setDispositionsState] = React.useState("");
+    // const [sizes, setSizes] = React.useState([]);
+    // const [sizesState, setSizesState] = React.useState("");
+    // const [species, setSpecies] = React.useState([]);
+    // const [speciesState, setSpeciesState] = React.useState("");
+
+    const [animalList, setAnimalList] = React.useState([]);
+
+    const [presentAlert] = useIonAlert();
+
+    const getOptions = async () => {
+        const token = localStorage.getItem("token");
+        const requestOptions = {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        };
+
+        const response = await fetch(`${BASE}/animal-options/`, requestOptions);
+
+        if (response.ok) {
+            const data = await response.json();
+
+            setAvailabilities(data.availabilities);
+            console.log(data);
+        } else {
+            presentAlert({
+                header: "Error",
+                subHeader: "",
+                message: "Unable to fetch filter options.",
+                buttons: ["OK"],
+            });
+        }
+    };
+
+    const handleSubmit = async () => {
+        //Options accepted by filter view: age, availability, availability_id, breed, breed_id, date_entered, disposition, id, image, name, news, shelter, shelter_id, size, size_id, species, species_id, views
+
+        let url = `${BASE}/animals/`;
+
+        console.log(availabilitiesState);
+
+        if (availabilitiesState !== -1) {
+            url += `?availability=${availabilitiesState}`;
+        }
+
+        const token = localStorage.getItem("token");
+        const requestOptions = {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        };
+
+        const response = await fetch(url, requestOptions);
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log(data);
+            setAnimalList(data);
+        } else {
+            presentAlert({
+                header: "Error",
+                subHeader: "",
+                message: "Unable to get results.",
+                buttons: ["OK"],
+            });
+        }
+    };
+
+    React.useEffect(() => {
+        getOptions();
+    }, []);
+
     return (
         <IonContent>
             <IonCard>
                 <IonCardHeader>
-                    <IonCardTitle>Search for cats</IonCardTitle>
-                    <IonCardSubtitle>Placeholder cat search</IonCardSubtitle>
+                    <IonCardTitle>Search for matches</IonCardTitle>
                 </IonCardHeader>
-
                 <IonCardContent>
-                    <img
-                        alt="Silhouette of mountains"
-                        src="https://placekitten.com/100/103"
-                    />
+                    <div key="availability">
+                        <h3>Availability</h3>
+                        <IonRadioGroup
+                            value={availabilitiesState}
+                            allowEmptySelection={true}
+                            onIonChange={(e) =>
+                                setAvailabilitiesState(e.detail.value)
+                            }
+                        >
+                            {availabilities.map((availability) => (
+                                <IonItem>
+                                    <IonLabel>
+                                        {availability.availability}
+                                    </IonLabel>
+                                    <IonRadio
+                                        slot="end"
+                                        value={availability.id}
+                                    />
+                                </IonItem>
+                            ))}
+                        </IonRadioGroup>
+                    </div>
                 </IonCardContent>
-                <IonCardContent>A cat.</IonCardContent>
+                <IonButton expand="block" onClick={handleSubmit}>
+                    Find matches
+                </IonButton>
             </IonCard>
+            {animalList.map((animal) => (
+                <IonCard>
+                    <IonCardHeader>
+                        <IonCardTitle>{animal.name}</IonCardTitle>
+                    </IonCardHeader>
+                    <IonCardContent>
+                        {animal.image ? (
+                            <IonCardContent>
+                                <img width="100" height="100" src={animal.image} />
+                            </IonCardContent>
+                        ) : (
+                            ``
+                        )}
+
+                        {animal.availability.availability ? (
+                            <p>
+                                Availability: {animal.availability.availability}
+                            </p>
+                        ) : (
+                            ``
+                        )}
+
+                        {animal.species && animal.species.name ? (
+                            <p>Species: {animal.species.name}</p>
+                        ) : (
+                            ``
+                        )}
+
+                        {animal.breed && animal.breed.name ? (
+                            <p>Breed: {animal.breed.name}</p>
+                        ) : (
+                            ``
+                        )}
+
+                        {animal.disposition ? <p>Dispositions:</p> : ``}
+                        <ul>
+                            {animal.disposition.map((disposition) => (
+                                <li>{disposition.disposition}</li>
+                            ))}
+                        </ul>
+
+                        {animal.age ? <p>Age: {animal.age}</p> : ``}
+
+                        {animal.size && animal.size.name ? (
+                            <p>Size: {animal.size.name}</p>
+                        ) : (
+                            ``
+                        )}
+                    </IonCardContent>
+                </IonCard>
+            ))}
         </IonContent>
     );
 };
