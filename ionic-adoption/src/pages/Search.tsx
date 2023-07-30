@@ -26,8 +26,8 @@ const Search: React.FC = () => {
     // const [dispositionsState, setDispositionsState] = React.useState("");
     // const [sizes, setSizes] = React.useState([]);
     // const [sizesState, setSizesState] = React.useState("");
-    // const [species, setSpecies] = React.useState([]);
-    // const [speciesState, setSpeciesState] = React.useState("");
+    const [species, setSpecies] = React.useState([]);
+    const [speciesState, setSpeciesState] = React.useState(-1);
 
     const [animalList, setAnimalList] = React.useState([]);
 
@@ -49,6 +49,7 @@ const Search: React.FC = () => {
             const data = await response.json();
 
             setAvailabilities(data.availabilities);
+            setSpecies(data.species);
             console.log(data);
         } else {
             presentAlert({
@@ -63,13 +64,22 @@ const Search: React.FC = () => {
     const handleSubmit = async () => {
         //Options accepted by filter view: age, availability, availability_id, breed, breed_id, date_entered, disposition, id, image, name, news, shelter, shelter_id, size, size_id, species, species_id, views
 
-        let url = `${BASE}/animals/`;
+        let url = `${BASE}/animals/?`;
+        let urlSuffixes = [];
 
         console.log(availabilitiesState);
 
-        if (availabilitiesState !== -1) {
-            url += `?availability=${availabilitiesState}`;
+        if (availabilitiesState && availabilitiesState !== -1) {
+            urlSuffixes.push(`availability=${availabilitiesState}`);
         }
+
+        if (speciesState && speciesState !== -1) {
+            urlSuffixes.push(`species=${speciesState}`);
+        }
+
+        url += urlSuffixes.join("&");
+
+        console.log(url);
 
         const token = localStorage.getItem("token");
         const requestOptions = {
@@ -124,6 +134,25 @@ const Search: React.FC = () => {
                                         slot="end"
                                         value={availability.id}
                                     />
+                                </IonItem>
+                            ))}
+                        </IonRadioGroup>
+                    </div>
+                </IonCardContent>
+                <IonCardContent>
+                    <div key="species">
+                        <h3>Species</h3>
+                        <IonRadioGroup
+                            value={speciesState}
+                            allowEmptySelection={true}
+                            onIonChange={(e) =>
+                                setSpeciesState(e.detail.value)
+                            }
+                        >
+                            {species.map((specie) => (
+                                <IonItem>
+                                    <IonLabel>{specie.name}</IonLabel>
+                                    <IonRadio slot="end" value={specie.id} />
                                 </IonItem>
                             ))}
                         </IonRadioGroup>
