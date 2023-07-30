@@ -5,37 +5,38 @@ from django.contrib.auth.models import User
 class SpeciesSerializer(ModelSerializer):
     class Meta:
         model = apps.get_model("animals", "Species")
-        fields = ["name"]
-        read_only_fields = ["name"]
+        fields = ["id", "name"]
+        read_only_fields = ["id", "name"]
 
 class BreedSerializer(ModelSerializer):
     class Meta:
         model = apps.get_model("animals", "Breed")
-        fields = ["name"]
-        read_only_fields = ["name"]
+        fields = ["id", "name"]
+        read_only_fields = ["id", "name"]
 
 class SizeSerializer(ModelSerializer):
     class Meta:
         model = apps.get_model("animals", "Size")
-        fields = ["name"]
-        read_only_fields = ["name"]
+        fields = ["id", "name"]
+        read_only_fields = ["id", "name"]
 
 class AvailabilitySerializer(ModelSerializer):
     class Meta:
         model = apps.get_model("animals", "Availability")
-        fields = ["availability"]
-        read_only_fields = ["availability"]
+        fields = ["id", "availability"]
+        read_only_fields = ["id", "availability"]
 
 class DispositionSerializer(ModelSerializer):
     class Meta:
         model = apps.get_model("animals", "Disposition")
-        fields = ["disposition"]
-        read_only_fields = ["disposition"]
+        fields = ["id", "disposition"]
+        read_only_fields = ["id", "disposition"]
 
 class ShelterSerializer(ModelSerializer):
     class Meta:
         model = apps.get_model("shelters", "Shelter")
         fields = [
+            "id",
             "name",
             "addressLine1",
             "addressLine2",
@@ -46,6 +47,7 @@ class ShelterSerializer(ModelSerializer):
             "phoneNumber",
             "webSite"
         ]
+        read_only_fields = ["id"]
 
 class UserSerializer(ModelSerializer):
     # Using the example:
@@ -77,6 +79,7 @@ class AnimalSerializer(ModelSerializer):
         model = apps.get_model("animals", "Animal")
         # writing out field names here for easier reference
         fields = [
+            "id",
             "date_entered",
             "name",
             "species",
@@ -89,7 +92,7 @@ class AnimalSerializer(ModelSerializer):
             "size",
             "image",
         ]
-        read_only_fields = ["shelter", "views", "date_entered"]
+        read_only_fields = ["id", "shelter", "views", "date_entered"]
 
 class NewsSerializer(ModelSerializer):
     author = UserSerializer(read_only=True)
