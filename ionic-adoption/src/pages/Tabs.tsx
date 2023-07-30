@@ -1,15 +1,10 @@
 import {
-    // IonContent,
-    // IonHeader,
     IonIcon,
     IonLabel,
-    // IonPage,
     IonRouterOutlet,
     IonTabBar,
     IonTabButton,
     IonTabs,
-    // IonTitle,
-    // IonToolbar,
 } from "@ionic/react";
 import React from "react";
 import NewsList from "./NewsList";

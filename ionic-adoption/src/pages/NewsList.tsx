@@ -1,26 +1,36 @@
 import {
-    // IonAvatar,
     IonCard,
     IonCardContent,
     IonCardHeader,
-    IonCardSubtitle,
     IonCardTitle,
     IonContent,
-    // IonHeader,
-    // IonInfiniteScroll,
-    // IonInfiniteScrollContent,
-    // IonItem,
-    // IonLabel,
-    // IonList,
-    // IonPage,
-    // IonTitle,
-    // IonToolbar,
-    // useIonViewWillEnter,
+    IonButton,
+    IonIcon,
+    IonGrid,
+    IonRow,
+    useIonRouter,
 } from "@ionic/react";
 import React from "react";
+import { logOutOutline } from "ionicons/icons";
 import { BASE } from "../constants";
 
 const NewsList: React.FC = () => {
+    const router = useIonRouter();
+    const doLogout = () => {
+        const requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ refresh: localStorage.getItem("refresh") }),
+        };
+
+        // There is no await here because I don't care about the result.
+        fetch(`${BASE}/token/blacklist/`, requestOptions);
+
+        localStorage.setItem("token", "");
+        localStorage.setItem("refresh", "");
+        router.push("/", "root", "replace");
+    };
+
     // Declare a state variable to store the posts data
     const [posts, setPosts] = React.useState([]);
 
@@ -64,6 +74,19 @@ const NewsList: React.FC = () => {
 
     return (
         <IonContent>
+            <IonGrid>
+                <IonRow class="ion-justify-content-end">
+                    <IonButton
+                        className="ion-margin-top"
+                        type="submit"
+                        onClick={doLogout}
+                    >
+                        Logout{" "}
+                        <IonIcon slot="end" icon={logOutOutline}></IonIcon>
+                    </IonButton>
+                </IonRow>
+                <IonRow></IonRow>
+            </IonGrid>
             {posts.map((post) => (
                 <IonCard>
                     <IonCardHeader>
@@ -71,9 +94,11 @@ const NewsList: React.FC = () => {
                         {/* <IonCardSubtitle></IonCardSubtitle> */}
                     </IonCardHeader>
                     {createImg(post.animal)}
-                    
+
                     <IonCardContent>
-                        <p>{post.author ? `By: ${post.author.username}` : ""}</p>
+                        <p>
+                            {post.author ? `By: ${post.author.username}` : ""}
+                        </p>
                         <p>{post.body}</p>
                     </IonCardContent>
                 </IonCard>
