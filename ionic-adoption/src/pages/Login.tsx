@@ -31,10 +31,11 @@ const Login: React.FC = () => {
         const response = await fetch(`${BASE}/login/`, requestOptions);
         if (response.ok) {
             const data = await response.json();
-            const token = data.access;
 
             // TODO: Long term I might not want to store in localStorage.
-            localStorage.setItem("token", token);
+            localStorage.setItem("token", data.access);
+            localStorage.setItem("refresh", data.refresh);
+
             // Options prevent the user from going back:
             router.push("/app", "root", "replace");
         }
