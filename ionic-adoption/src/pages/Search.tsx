@@ -13,6 +13,9 @@ import {
     useIonAlert,
     IonRadioGroup,
     IonRadio,
+    IonDatetimeButton,
+    IonModal,
+    IonDatetime,
 } from "@ionic/react";
 import React from "react";
 import { BASE } from "../constants";
@@ -28,6 +31,20 @@ const Search: React.FC = () => {
     // const [sizesState, setSizesState] = React.useState("");
     const [species, setSpecies] = React.useState([]);
     const [speciesState, setSpeciesState] = React.useState(-1);
+
+    //Used for setting starting dates of pickers:
+    let today = new Date();
+
+    const [endDate, setEndDate] = React.useState(
+        today.toISOString().slice(0, 10)
+    );
+
+    today = new Date();
+    today.setFullYear(today.getFullYear() - 5);
+
+    const [startDate, setStartDate] = React.useState(
+        today.toISOString().slice(0, 10)
+    );
 
     const [animalList, setAnimalList] = React.useState([]);
 
@@ -75,6 +92,14 @@ const Search: React.FC = () => {
 
         if (speciesState && speciesState !== -1) {
             urlSuffixes.push(`species=${speciesState}`);
+        }
+
+        if (startDate && startDate !== "") {
+            urlSuffixes.push(`date_entered_after=${startDate}`);
+        }
+
+        if (endDate && endDate !== "") {
+            urlSuffixes.push(`date_entered_before=${endDate}`);
         }
 
         url += urlSuffixes.join("&");
@@ -145,9 +170,7 @@ const Search: React.FC = () => {
                         <IonRadioGroup
                             value={speciesState}
                             allowEmptySelection={true}
-                            onIonChange={(e) =>
-                                setSpeciesState(e.detail.value)
-                            }
+                            onIonChange={(e) => setSpeciesState(e.detail.value)}
                         >
                             {species.map((specie) => (
                                 <IonItem>
@@ -157,6 +180,34 @@ const Search: React.FC = () => {
                             ))}
                         </IonRadioGroup>
                     </div>
+                </IonCardContent>
+                <IonCardContent>
+                    Posted from
+                    <IonDatetimeButton
+                        id="datetime-button"
+                        datetime="datetime"
+                    ></IonDatetimeButton>
+                    <IonModal keepContentsMounted={true}>
+                        <IonDatetime
+                            id="datetime"
+                            presentation="date"
+                            value={startDate}
+                            onIonChange={(e) => setStartDate(e.detail.value)}
+                        ></IonDatetime>
+                    </IonModal>{" "}
+                    to{" "}
+                    <IonDatetimeButton
+                        id="datetime-button2"
+                        datetime="datetime2"
+                    ></IonDatetimeButton>
+                    <IonModal keepContentsMounted={true}>
+                        <IonDatetime
+                            id="datetime2"
+                            presentation="date"
+                            value={endDate}
+                            onIonChange={(e) => setEndDate(e.detail.value)}
+                        ></IonDatetime>
+                    </IonModal>
                 </IonCardContent>
                 <IonButton expand="block" onClick={handleSubmit}>
                     Find matches
@@ -170,7 +221,11 @@ const Search: React.FC = () => {
                     <IonCardContent>
                         {animal.image ? (
                             <IonCardContent>
-                                <img width="100" height="100" src={animal.image} />
+                                <img
+                                    width="100"
+                                    height="100"
+                                    src={animal.image}
+                                />
                             </IonCardContent>
                         ) : (
                             ``
@@ -207,6 +262,15 @@ const Search: React.FC = () => {
 
                         {animal.size && animal.size.name ? (
                             <p>Size: {animal.size.name}</p>
+                        ) : (
+                            ``
+                        )}
+
+                        {animal.date_entered ? (
+                            <p>
+                                Date entered:{" "}
+                                {animal.date_entered.slice(0, 10)}
+                            </p>
                         ) : (
                             ``
                         )}
