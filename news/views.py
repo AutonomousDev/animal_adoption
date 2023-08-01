@@ -35,7 +35,7 @@ class NewsDetailView(DetailView):
 class NewsListView(ListView):
     model = News
     ordering = ['-date_created']
-    paginate_by = 5
+    paginate_by = 6
 
 class NewsCreateView(LoginRequiredMixin, CreateView):
     model = News
