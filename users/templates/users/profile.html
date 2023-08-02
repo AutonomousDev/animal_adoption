@@ -2,8 +2,8 @@
 {% block content %}
 {% load crispy_forms_tags %}
 
-<div class="content-section">
-    <form method="POST" class="mb-3">
+<div class="content-section mx-5">
+    <form method="POST" class="m-5">
         {% csrf_token %}
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">{{ user.username }}'s Profile</legend>

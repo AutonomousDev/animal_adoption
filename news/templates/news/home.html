@@ -51,12 +51,12 @@
     {% if user.is_authenticated %}
     <div class="col">
         <h2> You're signed up. </h2>
-        <a href="/animals/" class="btn btn-outline-dark btn-lg follow-button">Start browsing animals! </a>
+        <a href="/animals/" class="btn btn-outline-dark btn-lg">Start browsing animals! </a>
     </div>
     {% else %}
     <div class="col">
         <h2> See all animals - register now! </h2>
-        <a href="/users/register/" class="btn btn-outline-dark btn-lg follow-button">Register</a>
+        <a href="/users/register/" class="btn btn-outline-dark btn-lg">Register</a>
     </div>
     {% endif %}
 </div>
@@ -65,7 +65,7 @@
     <div class="col px-5 col-lg-6 info-box">
         <h1 class="headline"> Latest news from our shelters </h1>
         <br>
-        <a href="/news/" class="btn btn-outline-dark btn-lg follow-button"> See all </a>
+        <a href="/news/" class="btn btn-outline-dark btn-lg"> See all </a>
     </div>
     <div class="col-lg-6 info-box">
         <div id="news-slides" class="carousel slide" data-bs-interval="false" data-ride="carousel">

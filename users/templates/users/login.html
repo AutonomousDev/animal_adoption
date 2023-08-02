@@ -3,20 +3,26 @@
 {% block content %}
 
 <div class="content-section">
-  <form method="POST" class="mb-3">
-      {% csrf_token %}
-      <fieldset class="form-group">
-          <legend class="border-bottom mb-4">Login</legend>
-          {{ form|crispy }}
-      </fieldset>
-      <div class="form-group">
-          <button class="btn btn-outline-info" type="submit">Login</button>
-      </div>
-  </form>
-    <div class="border-top pt-3">
-        <small class="text-muted">
-            Need an Account? <a class="ml-2" href="{% url 'users-register' %}">Sign Up Now</a>
-        </small>
+    <div class="row m-5">
+        <div class="col-lg-6">
+            <form method="POST" class="mb-3">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4"><h4>Login</h4></legend>
+                    {{ form|crispy }}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit">Login</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-6">
+            <div class="p-3 m-5">
+                <h4>Need an Account? </h4>
+                <br>
+                <a class="btn btn-outline-dark btn-lg" href="{% url 'users-register' %}">Sign Up Now</a>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock content %}
