@@ -72,6 +72,7 @@ html, body {
     align-items: center;
     height: 75px;
     width: 100%;
+
   }
 
 .headline {
@@ -144,4 +145,8 @@ info-box h2 {
 
 .row-v3 h1 {
     color:#0f0e0e;
+}
+
+.sm-page {
+    margin-bottom:35%;
 }

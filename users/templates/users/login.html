@@ -2,13 +2,13 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
-<div class="content-section">
-    <div class="row m-5">
+<div class="content-section mx-5 sm-page">
+    <div class="row">
         <div class="col-lg-6">
             <form method="POST" class="mb-3">
                 {% csrf_token %}
                 <fieldset class="form-group">
-                    <legend class="border-bottom mb-4"><h4>Login</h4></legend>
+                    <legend class="border-bottom mb-4"><h1>Login</h1></legend>
                     {{ form|crispy }}
                 </fieldset>
                 <div class="form-group">
