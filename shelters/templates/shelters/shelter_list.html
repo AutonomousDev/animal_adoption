@@ -1,5 +1,6 @@
 {% extends "news/components/base.html" %}
 {% block content %}
+<div class="m-5">
 <h1> Shelters</h1>
 
 {% if user.is_authenticated %}
@@ -15,18 +16,18 @@
             <div class="card-body">
                 <h5 class="card-title">{{ object }}</h5>
                 <h6 class="card-title">{{ object.city }} {{ object.state }}</h6>
-
                 <div class="card-text">
                     <span>
                         {{ object.phoneNumber }}
                     </span>
+                    <br>
                 </div>
-
+                <br>
                 <a href="{{ object.get_absolute_url }}" class="btn btn-primary">Shelter details</a>
             </div>
         </div>
     </div>
     {% endfor %}
 </div>
-
+</div>
 {% endblock %}

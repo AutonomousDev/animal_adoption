@@ -1,26 +1,34 @@
 {% extends "news/components/base.html" %}
 {% block content %}
-<h1>Latest News</h1>
+<div class="mx-5">
+<h1 class="headline">Latest News</h1>
 
 {% if user.is_authenticated and user.profile.shelter %}
 <a class="btn btn-success" href="{% url 'news-create' %}" role="button">New Post</a>
 {% endif %}
 
-{% for object in object_list %}
-<div class="col-sm-4">
-    <div class="card mt-4">
-        <h4 class="card-title">{{ object.title }}</h4>
-        <h5 class="card-title">By: {{object.author}}</h5>
-        <h6 class="card-title">{{ object.date_created}}</h6> 
-        <div class="card-body">
-            <a href="{{ object.get_absolute_url }}" class="btn btn-primary">View Details</a>
-            {% if object.animal %}
-                <img src="{{ object.animal.image.url }}" alt="animal" class="img-thumbnail">
-            {% endif %}
+<div class="row m-5 row-v1">
+    {% for object in object_list %}
+    <div class="col-sm-4">
+        <div class="card my-4">
+            <div class="card-body">
+            <div class="ratio ratio-1x1">
+                {% if object.animal %}
+                <img class="img-thumbnail" style="object-fit: cover" src="{{ object.animal.image.url }}" alt="animal">
+                {% endif %}
+                <br>
+            </div>
+            <br>
+            <h4 class="card-title">{{ object.title }}</h4>
+            <h5 class="card-title">By: {{object.author}}</h5>
+            <h6 class="card-title">{{ object.date_created}}</h6> 
+            <br>
+            <a href="{{ object.get_absolute_url }}" class="btn btn-outline-dark">View Details</a>
+            </div>
         </div>
     </div>
+    {% endfor %}
 </div>
-{% endfor %}
 
 {% if is_paginated %}
 {% if page_obj.has_previous %}
@@ -42,4 +50,5 @@
             <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
         {% endif %}
 {% endif %}
+</div>
 {% endblock %}

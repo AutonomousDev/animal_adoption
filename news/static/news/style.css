@@ -1,0 +1,152 @@
+html, body {
+    height: 100%;
+}
+
+/* elements */
+
+.first-row {
+    color: #8b9a46;
+    display: flex;
+    text-align:right;
+    align-items: center;
+}
+
+.row-v1{
+    color:#0f0e0e;
+    background-color:#EEEEEE;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: flex-end; 
+    min-height: 400px;
+    margin: 25px;
+}
+
+.row-v2 {
+    color: #8b9a46;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    min-height: 400px;
+}
+
+.row-v3 {
+    background-color: #8b9a46;
+    color:#EEEEEE;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    min-height: 400px;
+}
+
+.row-v4{
+    color:#0f0e0e;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    min-height: 400px;
+    margin: 25px;
+}
+
+.row-v5 {
+    padding: 25px;
+    align-items: baseline;
+}
+
+.info-box {
+    padding: 20px;
+    color:#0f0e0e;
+    min-height: 200px;
+}
+
+.carousel-inner {
+    max-height: 300px;
+}
+
+.footer {
+    display: flex;
+    color: #fff;
+    padding: 20px; 
+    margin-top: auto;
+    text-align: center;
+    align-items: center;
+    height: 75px;
+    width: 100%;
+
+  }
+
+.headline {
+    padding-top: 15px;
+}
+
+/* images */
+
+.carousel-item img {
+    max-height: 150px;
+}
+
+.feature img {
+    max-width: 85%;
+}
+
+.feature {
+    text-align: center;
+}
+
+.feature a {
+    text-decoration: none;
+    color:#d89216;
+}
+
+.feature a:hover {
+    color: #8b9a46;
+}
+
+/* text  */
+
+.navbar-brand {
+    font-family: 'Luckiest Guy';
+    padding-left: 10px;
+}
+
+.home-top {
+    margin-bottom: 0;
+}
+
+.home-top h1 {
+    font-size: 8rem;
+    line-height: 1.5;
+}
+
+.home-top h2 {
+    font-size: 4.5rem;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Luckiest Guy';
+}
+
+h5, h6, p {
+    font-family: 'Roboto';
+}
+
+.sr-only p {
+    color: #0f0e0e;
+}
+
+.carousel-item a {
+    text-decoration: none;
+    color:#d89216;
+}
+
+info-box h2 {
+    color:#8b9a46;
+}
+
+.row-v3 h1 {
+    color:#0f0e0e;
+}
+
+.sm-page {
+    margin-bottom:35%;
+}
