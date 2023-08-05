@@ -29,29 +29,6 @@ class AnimalListView(ListAPIView):
     filter_backends = [DjangoFilterBackend]
     filterset_class = AnimalFilter
 
-# class FindAnimalsView(APIView):
-#     """
-#     GET list of all animals.
-
-#     Alternatively, use POST to request animals that match specified filter
-#     options.
-#     """
-
-#     permission_classes = [IsAuthenticated]
-
-#     def get(self, request):
-#         queryset = apps.get_model("animals", "Animal").objects.all()
-#         serializer = AnimalSerializer(queryset, many=True)
-
-#         return Response(serializer.data, status=200)
-
-#     def post(self, request):
-#         data = request.data
-#         queryset = apps.get_model("animals", "Animal").objects.filter(**data)
-#         serializer = AnimalSerializer(queryset, many=True)
-        
-#         return Response(serializer.data, status=200)
-
 class NewsListView(ListAPIView):
     """
     Get list of news. Pagination is enabled.
