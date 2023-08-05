@@ -27,7 +27,7 @@ const Search: React.FC = () => {
     const router = useIonRouter();
 
     const [availabilities, setAvailabilities] = React.useState([]);
-    const [availabilitiesState, setAvailabilitiesState] = React.useState(-1);
+    const [availabilitiesState, setAvailabilitiesState] = React.useState([]);
     const [breeds, setBreeds] = React.useState([]);
     const [breedsState, setBreedsState] = React.useState([]);
     const [dispositions, setDispositions] = React.useState([]);
@@ -35,7 +35,7 @@ const Search: React.FC = () => {
     // const [sizes, setSizes] = React.useState([]);
     // const [sizesState, setSizesState] = React.useState("");
     const [species, setSpecies] = React.useState([]);
-    const [speciesState, setSpeciesState] = React.useState(-1);
+    const [speciesState, setSpeciesState] = React.useState([]);
 
     //Used for setting starting dates of pickers:
     let today = new Date();
@@ -92,12 +92,16 @@ const Search: React.FC = () => {
 
         console.log(availabilitiesState);
 
-        if (availabilitiesState && availabilitiesState !== -1) {
-            urlSuffixes.push(`availability=${availabilitiesState}`);
+        if (availabilitiesState && availabilitiesState.length > 0) {
+            for (let i = 0; i < availabilitiesState.length; i++) {
+                urlSuffixes.push(`availability=${availabilitiesState[i]}`);
+            }
         }
 
-        if (speciesState && speciesState !== -1) {
-            urlSuffixes.push(`species=${speciesState}`);
+        if (speciesState && speciesState.length > 0) {
+            for (let i = 0; i < speciesState.length; i++) {
+                urlSuffixes.push(`species=${speciesState[i]}`);
+            }
         }
 
         if (dispositionsState && dispositionsState.length > 0) {
@@ -159,45 +163,42 @@ const Search: React.FC = () => {
                     <IonCardTitle>Search for matches</IonCardTitle>
                 </IonCardHeader>
                 <IonCardContent>
-                    <div key="availability">
-                        <h3>Availability</h3>
-                        <IonRadioGroup
-                            value={availabilitiesState}
-                            allowEmptySelection={true}
+                    <h3>Availability</h3>
+                    <IonItem>
+                        <IonSelect
+                            aria-label="availabilities"
+                            placeholder="Select all availabilities to include"
+                            interface="popover"
+                            multiple={true}
                             onIonChange={(e) =>
                                 setAvailabilitiesState(e.detail.value)
                             }
                         >
                             {availabilities.map((availability) => (
-                                <IonItem>
-                                    <IonLabel>
-                                        {availability.availability}
-                                    </IonLabel>
-                                    <IonRadio
-                                        slot="end"
-                                        value={availability.id}
-                                    />
-                                </IonItem>
+                                <IonSelectOption value={availability.id}>
+                                    {availability.availability}
+                                </IonSelectOption>
                             ))}
-                        </IonRadioGroup>
-                    </div>
+                        </IonSelect>
+                    </IonItem>
                 </IonCardContent>
                 <IonCardContent>
-                    <div key="species">
-                        <h3>Species</h3>
-                        <IonRadioGroup
-                            value={speciesState}
-                            allowEmptySelection={true}
+                    <h3>Species</h3>
+                    <IonItem>
+                        <IonSelect
+                            aria-label="species"
+                            placeholder="Select all species to include"
+                            interface="popover"
+                            multiple={true}
                             onIonChange={(e) => setSpeciesState(e.detail.value)}
                         >
                             {species.map((specie) => (
-                                <IonItem>
-                                    <IonLabel>{specie.name}</IonLabel>
-                                    <IonRadio slot="end" value={specie.id} />
-                                </IonItem>
+                                <IonSelectOption value={specie.id}>
+                                    {specie.name}
+                                </IonSelectOption>
                             ))}
-                        </IonRadioGroup>
-                    </div>
+                        </IonSelect>
+                    </IonItem>
                 </IonCardContent>
                 <IonCardContent>
                     <h3>Dispositions</h3>
