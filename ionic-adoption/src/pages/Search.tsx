@@ -8,10 +8,8 @@ import {
     IonSelect,
     IonSelectOption,
     IonItem,
-    IonLabel,
+    IonIcon,
     useIonAlert,
-    IonRadioGroup,
-    IonRadio,
     IonDatetimeButton,
     IonModal,
     IonHeader,
@@ -21,10 +19,26 @@ import {
     useIonRouter,
 } from "@ionic/react";
 import React from "react";
+import { logOutOutline } from "ionicons/icons";
 import { BASE } from "../constants";
 
 const Search: React.FC = () => {
     const router = useIonRouter();
+
+    const doLogout = () => {
+        const requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ refresh: localStorage.getItem("refresh") }),
+        };
+
+        // There is no await here because I don't care about the result.
+        fetch(`${BASE}/token/blacklist/`, requestOptions);
+
+        localStorage.setItem("token", "");
+        localStorage.setItem("refresh", "");
+        router.push("/", "root", "replace");
+    };
 
     const [availabilities, setAvailabilities] = React.useState([]);
     const [availabilitiesState, setAvailabilitiesState] = React.useState([]);
@@ -73,7 +87,7 @@ const Search: React.FC = () => {
             setSpecies(data.species);
             setDispositions(data.dispositions);
             setBreeds(data.breeds);
-            console.log(data);
+            // console.log(data);
         } else {
             presentAlert({
                 header: "Error",
@@ -89,8 +103,6 @@ const Search: React.FC = () => {
 
         let url = `${BASE}/animals/?`;
         let urlSuffixes = [];
-
-        console.log(availabilitiesState);
 
         if (availabilitiesState && availabilitiesState.length > 0) {
             for (let i = 0; i < availabilitiesState.length; i++) {
@@ -126,7 +138,7 @@ const Search: React.FC = () => {
 
         url += urlSuffixes.join("&");
 
-        console.log(url);
+        // console.log(url);
 
         const token = localStorage.getItem("token");
         const requestOptions = {
@@ -140,7 +152,7 @@ const Search: React.FC = () => {
 
         if (response.ok) {
             const data = await response.json();
-            console.log(data);
+            // console.log(data);
             setAnimalList(data);
         } else {
             presentAlert({
@@ -158,10 +170,16 @@ const Search: React.FC = () => {
 
     return (
         <IonContent>
+            <IonHeader>
+                <IonToolbar>
+                    <IonTitle>Search for Matches</IonTitle>
+                    <IonButton type="submit" onClick={doLogout} slot="end">
+                        Logout{" "}
+                        <IonIcon slot="end" icon={logOutOutline}></IonIcon>
+                    </IonButton>
+                </IonToolbar>
+            </IonHeader>
             <IonCard>
-                <IonCardHeader>
-                    <IonCardTitle>Search for matches</IonCardTitle>
-                </IonCardHeader>
                 <IonCardContent>
                     <h3>Availability</h3>
                     <IonItem>

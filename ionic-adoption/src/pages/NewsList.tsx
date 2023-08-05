@@ -4,10 +4,12 @@ import {
     IonCardHeader,
     IonCardTitle,
     IonContent,
+    IonHeader,
+    IonTitle,
+    IonToolbar,
+    IonModal,
     IonButton,
     IonIcon,
-    IonGrid,
-    IonRow,
     useIonRouter,
 } from "@ionic/react";
 import React from "react";
@@ -41,7 +43,7 @@ const NewsList: React.FC = () => {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`,
+                Authorization: `Bearer ${token}`,
             },
         };
 
@@ -49,16 +51,14 @@ const NewsList: React.FC = () => {
 
         const data = await response.json();
 
+        // console.log(data);
+
         setPosts(data);
     }
 
     React.useEffect(() => {
         getNews();
     }, []);
-
-    // useIonViewWillEnter(() => {
-    //     console.log("ionViewWillEnter event fired");
-    // });
 
     function createImg(post_animal) {
         if (post_animal && post_animal.image) {
@@ -74,33 +74,46 @@ const NewsList: React.FC = () => {
 
     return (
         <IonContent>
-            <IonGrid>
-                <IonRow class="ion-justify-content-end">
-                    <IonButton
-                        className="ion-margin-top"
-                        type="submit"
-                        onClick={doLogout}
-                    >
+            <IonHeader>
+                <IonToolbar>
+                    <IonTitle>News Feed</IonTitle>
+                    <IonButton type="submit" onClick={doLogout} slot="end">
                         Logout{" "}
                         <IonIcon slot="end" icon={logOutOutline}></IonIcon>
                     </IonButton>
-                </IonRow>
-                <IonRow></IonRow>
-            </IonGrid>
-            {posts.map((post) => (
-                <IonCard>
+                </IonToolbar>
+            </IonHeader>
+            {posts.map((post, index) => (
+                <IonCard id={index + "post"}>
                     <IonCardHeader>
                         <IonCardTitle>{post.title}</IonCardTitle>
-                        {/* <IonCardSubtitle></IonCardSubtitle> */}
                     </IonCardHeader>
-                    {createImg(post.animal)}
-
                     <IonCardContent>
                         <p>
-                            {post.author ? `By: ${post.author.username}` : ""}
+                            {post.body.length > 25
+                                ? `${post.body.slice(0, 25)}...`
+                                : post.body}
                         </p>
-                        <p>{post.body}</p>
                     </IonCardContent>
+                    <IonModal trigger={index + "post"}>
+                        <IonHeader>
+                            <IonToolbar>
+                                <IonTitle>{post.title}</IonTitle>
+                            </IonToolbar>
+                        </IonHeader>
+                        <IonContent className="ion-padding">
+                            <p>
+                                {post.author
+                                    ? `By: ${post.author.username}`
+                                    : ""}
+                            </p>
+                            <p>
+                                Posted on: {post.date_created.substring(0, 10)}
+                            </p>
+                            <p>{post.body}</p>
+                            {createImg(post.animal)}
+                        </IonContent>
+                    </IonModal>
                 </IonCard>
             ))}
         </IonContent>
