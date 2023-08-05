@@ -8,24 +8,30 @@ from django_filters import (
     CharFilter,
     RangeFilter,
     MultipleChoiceFilter,
+    ModelMultipleChoiceFilter,
 )
 from django.apps import apps
 
 
 class AnimalFilter(FilterSet):
-    name = CharFilter(lookup_expr="contains")
     date_entered = DateFromToRangeFilter()
-    age = RangeFilter()
+    species = ModelMultipleChoiceFilter(
+        queryset=apps.get_model("animals", "Species").objects.all()
+    )
+    breed = ModelMultipleChoiceFilter(
+        queryset=apps.get_model("animals", "Breed").objects.all()
+    )
+    availability = ModelMultipleChoiceFilter(
+        queryset=apps.get_model("animals", "Availability").objects.all()
+    )
+    disposition = ModelMultipleChoiceFilter(
+        queryset=apps.get_model("animals", "Disposition").objects.all()
+    )
 
     class Meta:
         model = apps.get_model("animals", "Animal")
         fields = [
             "name",
-            "species",
             "age",
-            "breed",
-            "availability",
-            "disposition",
             "size",
-            "date_entered",
         ]
