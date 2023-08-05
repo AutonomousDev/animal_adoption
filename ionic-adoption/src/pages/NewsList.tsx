@@ -64,7 +64,7 @@ const NewsList: React.FC = () => {
         if (post_animal && post_animal.image) {
             return (
                 <IonCardContent>
-                    <img width="100" height="100" src={post_animal.image} />
+                    <img max-width="300" height="300" src={post_animal.image} />
                 </IonCardContent>
             );
         }

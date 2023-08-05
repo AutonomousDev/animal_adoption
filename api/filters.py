@@ -16,30 +16,6 @@ class AnimalFilter(FilterSet):
     name = CharFilter(lookup_expr="contains")
     date_entered = DateFromToRangeFilter()
     age = RangeFilter()
-    availability = MultipleChoiceFilter(
-        choices=[
-            (obj.id, obj.availability)
-            for obj in apps.get_model("animals", "Availability").objects.all()
-        ]
-    )
-    species = MultipleChoiceFilter(
-        choices=[
-            (obj.id, obj.name)
-            for obj in apps.get_model("animals", "Species").objects.all()
-        ]
-    )
-    disposition = MultipleChoiceFilter(
-        choices=[
-            (obj.id, obj.disposition)
-            for obj in apps.get_model("animals", "Disposition").objects.all()
-        ]
-    )
-    breed = MultipleChoiceFilter(
-        choices=[
-            (obj.id, obj.name)
-            for obj in apps.get_model("animals", "Breed").objects.all()
-        ]
-    )
 
     class Meta:
         model = apps.get_model("animals", "Animal")

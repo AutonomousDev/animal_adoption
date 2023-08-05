@@ -299,7 +299,7 @@ const Search: React.FC = () => {
                         {animal.image ? (
                             <IonCardContent>
                                 <img
-                                    width="100"
+                                    max-width="100"
                                     height="100"
                                     src={animal.image}
                                 />
@@ -331,8 +331,8 @@ const Search: React.FC = () => {
                         <IonContent className="ion-padding">
                             {animal.image ? (
                                 <img
-                                    width="200"
-                                    height="200"
+                                    max-width="300"
+                                    height="300"
                                     src={animal.image}
                                 />
                             ) : (
