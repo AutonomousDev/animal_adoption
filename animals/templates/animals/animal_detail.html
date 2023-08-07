@@ -6,19 +6,21 @@
 <div class="row mx-5">
   <h1 class="headline"> Details for {{ animal.name }} </h1>
   <br>
-  {% for disposition in animal.disposition.all %}
+  <!--  for disposition in animal.disposition.all  -->
   <div class="col-lg-3 col-md-2">
+    {% for disposition in animal.disposition.all %}
     <span class="badge bg-info text-dark">  {{ disposition }}  </span>
+    {% endfor %}
     <br>
   </div>
-  {% endfor %}
+  <!--  endfor  -->
 </div>
 <div class="row m-5 row-v1">
   <br>
   <div class="col-lg-6 info-box">
     <h5> {{ animal.species }}, {{ animal.age }} years</h5>
     <br>
-    <p> Location: {{ animal.shelter }} </p>
+    <p>Location: <a href="{{ animal.shelter.get_absolute_url }}">{{ animal.shelter }} </a></p>
     <br>
     <p> Status: {{ animal.availability }} </p>
     {% if animal.breed %}

@@ -5,24 +5,34 @@
     <h1 class="headline"> {{ object.title }} </h1>
     <h5> {{ object.author }} </h5>
     <h5> {{ object.date_created }} </h5>
-    <div class="col col-lg-6 col-md-12">
-        <p> {{ object.body }} </p>
-        {% if object.author == user %}  
-        <a class='btn btn-warning mt-2 mb-2' href="{% url 'news-update' object.id %}">Update</a>
-        <a class='btn btn-danger mt-2 mb-2' href="{% url 'news-delete' object.id %}">Delete</a> 
-        {% endif %} 
-        <a class="btn btn-outline-dark" href="{% url 'news-list' %}">View All</a>
-        <br>
-    </div>
     {% if object.animal %}
-    <div class="col">
-        <div class="ratio ratio-1x1">
-            <img src="{{ object.animal.image.url }}" alt="animal" class="img-fluid">
+        <div class="col col-lg-6 col-md-12">
+            <p> {{ object.body }} </p>
+            {% if object.author == user %}  
+            <a class='btn btn-warning mt-2 mb-2' href="{% url 'news-update' object.id %}">Update</a>
+            <a class='btn btn-danger mt-2 mb-2' href="{% url 'news-delete' object.id %}">Delete</a> 
+            {% endif %} 
+            <a class="btn btn-outline-dark" href="{% url 'news-list' %}">View All</a>
             <br>
         </div>
+        <div class="col">
+            <div class="ratio ratio-1x1">
+                <img src="{{ object.animal.image.url }}" alt="animal" class="img-fluid">
+                <br>
+            </div>
+            <br>
+            <a href="{% url 'animals-detail' object.animal.id %}" class="btn btn-outline-dark"> Check the animal out! </a>
+        </div>
+    {% else %}
+        <p> {{ object.body }} </p>
+        <div>
+            {% if object.author == user %}  
+            <a class='btn btn-warning mt-2 mb-2' href="{% url 'news-update' object.id %}">Update</a>
+            <a class='btn btn-danger mt-2 mb-2' href="{% url 'news-delete' object.id %}">Delete</a> 
+            {% endif %} 
+            <a class="btn btn-outline-dark" href="{% url 'news-list' %}">View All</a>
+        </div>
         <br>
-        <a href="{% url 'animals-detail' object.animal.id %}" class="btn btn-outline-dark"> Check the animal out! </a>
-    </div>
     {% endif %}
 </div>
 {% endblock content %}

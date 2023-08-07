@@ -28,6 +28,10 @@
     <a href="{{object.webSite}}">{{ object.name }}'s website</a>
     <br>
     <br>
+    {% if user.profile.shelter == shelter %} 
+    <a class='btn btn-warning mt-2 mb-2' href="{% url 'shelter-update' object.id %}">Update</a>
+    <a class='btn btn-danger mt-2 mb-2' href="{% url 'shelter-delete' object.id %}">Delete</a> 
+    {% endif %}
     <a class="btn btn-outline-dark" href="{% url 'shelters-list' %}">View All</a>
   </div>
 </div>
