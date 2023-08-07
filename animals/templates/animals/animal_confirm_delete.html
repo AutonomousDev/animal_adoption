@@ -1,8 +1,10 @@
 {% extends "news/components/base.html" %}
 {% block content %}
 
-    <div class="content-section">
-        <form method="POST">
+<div class="content-section mx-5 sm-page">
+    <div class="row">
+        <div class="col-lg-6 col-md-8">
+            <form method="POST" class="m-5">
             {% csrf_token %}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Delete Animal</legend>
@@ -14,6 +16,8 @@
                 <button class="btn btn-outline-danger" type="submit">Delete</button>
                 <a class="btn btn-outline-secondary" href="{% url 'animals-detail' object.id %}">Cancel</a>
             </div>
-        </form>
+            </form>
+        </div>
     </div>
+</div>
 {% endblock content %}
